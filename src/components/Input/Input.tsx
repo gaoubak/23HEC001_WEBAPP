@@ -1,20 +1,75 @@
 import './Input.css';
 
-interface InputProps {
-    type: string;
+type InputProps = {
+    id: string;
+    label?: string;
+    name: string;
     value: string;
-    onChange: (value: string) => void;
+    type?: string;
     placeholder?: string;
-}
+    error?: string;
+    icon?: React.ComponentType<{ className?: string }>;
+    variant?: 'inputIcon' | null;
+    minLength?: number;
+    maxLength?: number;
+    inputClasses?: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
-const Input: React.FC<InputProps> = ({ type , value, onChange, placeholder }) => (
-    <input
-        className="Input"
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-    />
-);
+export const Input = ({
+    id,
+    label,
+    name,
+    value,
+    type = 'text',
+    placeholder,
+    error,
+    icon: Icon = undefined,
+    variant,
+    minLength,
+    maxLength,
+    inputClasses = 'input',
+    onChange,
+}: InputProps) => {
+
+    return (
+        <div>
+            {label && <label htmlFor={id}>{label}</label>}
+
+            {variant === 'inputIcon' && (
+                <div className={inputClasses}>
+                    <input
+                        type={type}
+                        id={id}
+                        name={name}
+                        value={value}
+                        placeholder={placeholder}
+                        minLength={minLength}
+                        maxLength={maxLength}
+                        onChange={onChange}
+                    />
+                    {Icon && <Icon />}
+                </div>
+            )}
+
+            {!variant&& (
+                <div className={inputClasses}>
+                    <input
+                        type={type}
+                        id={id}
+                        name={name}
+                        value={value}
+                        placeholder={placeholder}
+                        minLength={minLength}
+                        maxLength={maxLength}
+                        onChange={onChange}
+                    />
+                </div>
+            )}
+
+            {error && <p>{error}</p>}
+        </div>
+    );
+};
 
 export default Input;

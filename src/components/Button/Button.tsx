@@ -1,15 +1,35 @@
 import './Button.css';
 
-interface ButtonProps {
+type ButtonProps = {
+    text?: string;
+    icon?: React.ComponentType<{ className?: string }>;
     onClick?: () => void;
-    label: string;
-    type?: 'button' | 'submit';
-}
+    submit?: boolean;
+    disabled?: boolean;
+    className?: string;
+    buttonClasses?: string;
+};
 
-const Button: React.FC<ButtonProps> = ({ onClick, label , type}) => (
-    <button type={type} className="Button" onClick={onClick}>
-        {label}
-    </button>
-);
+const Button = ({
+    text,
+    icon: Icon = undefined,
+    onClick,
+    submit = false,
+    disabled = false,
+    buttonClasses = 'button',
+}: ButtonProps) => {
+
+    return (
+        <button
+            disabled={disabled}
+            className={`${buttonClasses} }`}
+            onClick={onClick}
+            type={submit ? 'submit' : 'button'}
+        >
+            {Icon && <Icon />}
+            {text && <span>{text}</span>}
+        </button>
+    );
+};
 
 export default Button;
