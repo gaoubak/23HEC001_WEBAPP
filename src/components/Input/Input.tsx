@@ -31,7 +31,6 @@ export const Input = ({
     inputClasses = 'input',
     onChange,
 }: InputProps) => {
-
     return (
         <div>
             {label && <label htmlFor={id}>{label}</label>}
@@ -52,7 +51,7 @@ export const Input = ({
                 </div>
             )}
 
-            {!variant&& (
+            {!variant && (
                 <div className={inputClasses}>
                     <input
                         type={type}

@@ -20,7 +20,6 @@ export const Select = ({
     name,
     value,
     selectClasses = 'select',
-    
 }: SelectProps) => {
     useEffect(() => {
         if (options.length > 0 && (!value || value === undefined) && onChange) {
@@ -32,17 +31,13 @@ export const Select = ({
             } as ChangeEvent<HTMLSelectElement>);
         }
     }, [name, value, options, onChange]);
-  
+
     return (
         <div>
-            {label && (
-                <label htmlFor={id}>
-                    {label}
-                </label>
-            )}
+            {label && <label htmlFor={id}>{label}</label>}
             <select
                 id={id}
-                onChange={onChange} 
+                onChange={onChange}
                 className={selectClasses}
                 value={value}
             >

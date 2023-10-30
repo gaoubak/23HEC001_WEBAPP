@@ -1,35 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
+import Auth from "./containers/Auth/Auth";
+import Home from "./containers/Home/Home";
+import AddChannel from "./containers/AddChannel/AddChannel";
+import AddFriend from "./containers/AddFriend/AddFriend";
+import Err from "./containers/Err/Err";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+    const isLoggedIn = localStorage.getItem("authToken");
+    return (
+        <div className="App">
+            <Routes>
+                <Route path="/" element={ isLoggedIn ? <Navigate to="/Home" />: <Auth /> } />
+                <Route path="/Home" element={ isLoggedIn ? <Home /> : <Navigate to="/" /> } >
+                    <Route path="/Add-Channel" element={ isLoggedIn ? <AddChannel /> : <Navigate to="/" /> }/>
+                    <Route path="/Add-Friend" element={ isLoggedIn ? <AddFriend /> : <Navigate to="/" /> }/>
+                </Route>
+                <Route path="*" element={<Err/>} />
+            </Routes>
+        </div>
+    );
+};
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
-
-export default App
+export default App;

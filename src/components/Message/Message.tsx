@@ -17,7 +17,9 @@ function Message({ currentUser, messages }: MessageProps) {
             {messages.map((msg, index) => (
                 <div
                     key={index}
-                    className={`message ${msg.username === currentUser ? 'right' : 'left'}`}
+                    className={`message ${
+                        msg.username === currentUser ? 'right' : 'left'
+                    }`}
                 >
                     <div className="message-info">
                         <span className="message-username">{msg.username}</span>

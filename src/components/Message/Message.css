@@ -13,12 +13,12 @@
 
 .message.right {
     align-self: flex-end;
-    background-color: #E1F5FE;
+    background-color: #e1f5fe;
 }
 
 .message.left {
     align-self: flex-start;
-    background-color: #E8EAF6;
+    background-color: #e8eaf6;
 }
 
 .message-info {
@@ -28,9 +28,9 @@
 }
 
 .message-username {
-    color: #546E7A;
+    color: #546e7a;
 }
 
 .message-date {
-    color: #78909C;
+    color: #78909c;
 }

@@ -15,16 +15,14 @@
     flex-direction: row;
 }
 
-.success{
+.success {
     padding: 10px 20px;
-    border: #26CD9A 2px solid;
+    border: #26cd9a 2px solid;
     max-width: initial !important;
 }
 
-.error{
+.error {
     padding: 10px 20px;
-    border: #782D2D 2px solid;
+    border: #782d2d 2px solid;
     max-width: initial !important;
 }
-
-

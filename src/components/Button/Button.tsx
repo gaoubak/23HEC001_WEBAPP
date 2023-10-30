@@ -18,7 +18,6 @@ const Button = ({
     disabled = false,
     buttonClasses = 'button',
 }: ButtonProps) => {
-
     return (
         <button
             disabled={disabled}
