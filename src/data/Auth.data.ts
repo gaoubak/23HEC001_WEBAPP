@@ -1,4 +1,4 @@
-import { Question } from '../interface/Other/Question';
+import { Question } from '../interface/Other/question.interface';
 
 export const loginFormQuestions: Question[] = [
     {
@@ -14,11 +14,6 @@ export const loginFormQuestions: Question[] = [
         type: 'password',
         placeholder: 'Entrez votre mot de passe',
         required: true,
-    },
-    {
-        id: 'rememberMe',
-        label: 'Se souvenir de moi',
-        type: 'checkbox',
     },
 ];
 
@@ -49,6 +44,13 @@ export const registrationFormQuestions: Question[] = [
         label: 'Mot de passe',
         type: 'password',
         placeholder: 'Entrez votre mot de passe',
+        required: true,
+    },
+    {
+        id: 'confirmPassword',
+        label: 'Confirmez votre mot de passe',
+        type: 'password',
+        placeholder: 'Confirmez votre mot de passe',
         required: true,
     },
 ];

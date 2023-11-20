@@ -1,24 +1,44 @@
-import { Routes, Route } from "react-router-dom";
-import { Navigate } from 'react-router-dom';
-import Auth from "./containers/Auth/Auth";
-import Home from "./containers/Home/Home";
-import AddChannel from "./containers/AddChannel/AddChannel";
-import AddFriend from "./containers/AddFriend/AddFriend";
-import Err from "./containers/Err/Err";
+import { useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, AuthContext } from './context/AuthContext';
+import Auth from './pages/Auth/Auth';
+import Home from './pages/Home/Home';
+import Channel from './pages/Channel/Channel';
+import Friend from './pages/Friend/Friend';
+import User from './pages/User/User';
+import Err from './pages/Err/Err';
+import './App.css';
 
 const App = () => {
-    const isLoggedIn = localStorage.getItem("authToken");
+    const { isLoggedIn } = useContext(AuthContext);
     return (
-        <div className="App">
+        <AuthProvider>
             <Routes>
-                <Route path="/" element={ isLoggedIn ? <Navigate to="/Home" />: <Auth /> } />
-                <Route path="/Home" element={ isLoggedIn ? <Home /> : <Navigate to="/" /> } >
-                    <Route path="/Add-Channel" element={ isLoggedIn ? <AddChannel /> : <Navigate to="/" /> }/>
-                    <Route path="/Add-Friend" element={ isLoggedIn ? <AddFriend /> : <Navigate to="/" /> }/>
+                <Route
+                    path="/"
+                    element={isLoggedIn ? <Navigate to="/Home" /> : <Auth />}
+                />
+                <Route path="Home/:channelId">
+                    <Route
+                        index
+                        element={isLoggedIn ? <Home /> : <Navigate to="/" />}
+                    />
+                    <Route
+                        path="Channel"
+                        element={isLoggedIn ? <Channel /> : <Navigate to="/" />}
+                    />
+                    <Route
+                        path="Friend"
+                        element={isLoggedIn ? <Friend /> : <Navigate to="/" />}
+                    />
                 </Route>
-                <Route path="*" element={<Err/>} />
+                <Route
+                    path="User/:userId"
+                    element={isLoggedIn ? <User /> : <Navigate to="/" />}
+                />
+                <Route path="*" element={<Err />} />
             </Routes>
-        </div>
+        </AuthProvider>
     );
 };
 
