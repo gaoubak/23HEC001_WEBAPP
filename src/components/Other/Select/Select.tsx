@@ -1,6 +1,6 @@
 import { useEffect, ChangeEvent } from 'react';
 
-import { SelectProps } from '../../../interface/components/select.interface';
+import { SelectProps } from '../../../interface/components/Other/select.interface';
 
 function Select({
     id,

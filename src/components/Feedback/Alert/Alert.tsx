@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FaInfo } from 'react-icons/fa';
-import { AlertProps } from '../../../interface/components/alert.interface';
+import { AlertProps } from '../../../interface/components/Feedback/alert.interface';
 
 function Alert({
     type = 'info',

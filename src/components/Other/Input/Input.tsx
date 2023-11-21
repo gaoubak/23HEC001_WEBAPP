@@ -1,5 +1,5 @@
 import './Input.css';
-import { InputProps } from '../../../interface/components/input.interface';
+import { InputProps } from '../../../interface/components/Other/input.interface';
 
 const Input = ({
     id,

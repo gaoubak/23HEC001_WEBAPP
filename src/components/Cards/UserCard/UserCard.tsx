@@ -1,4 +1,4 @@
-import { ProfileCardProps } from '../../../interface/components/profileCard.interface';
+import { ProfileCardProps } from '../../../interface/components/Card/profileCard.interface';
 
 function ProfileCard({ name, username, bio, avatar }: ProfileCardProps) {
     return (

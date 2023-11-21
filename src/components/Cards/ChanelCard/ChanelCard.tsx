@@ -1,4 +1,4 @@
-import { ChannelCardProps } from '../../../interface/components/channelCard.interface';
+import { ChannelCardProps } from '../../../interface/components/Card/channelCard.interface';
 
 function ChannelCard({ name, description, followers }: ChannelCardProps) {
     return (

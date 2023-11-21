@@ -1,4 +1,4 @@
-import { SwitchProps } from '../../../interface/components/switch.interface';
+import { SwitchProps } from '../../../interface/components/Ui/switch.interface';
 
 function Switch({ isChecked, onChange }: SwitchProps) {
     return (

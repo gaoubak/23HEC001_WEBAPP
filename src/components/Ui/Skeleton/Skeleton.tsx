@@ -1,4 +1,4 @@
-import { SkeletonProps } from '../../../interface/components/skeleton.interface';
+import { SkeletonProps } from '../../../interface/components/Ui/skeleton.interface';
 
 function Skeleton({
     type = 'text',

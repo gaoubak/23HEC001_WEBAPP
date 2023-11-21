@@ -1,5 +1,5 @@
 import './Message.css';
-import { MessageProps } from '../../../interface/components/message.interface';
+import { MessageProps } from '../../../interface/components/Ui/message.interface';
 
 function Message({ currentUser, messages }: MessageProps) {
     return (

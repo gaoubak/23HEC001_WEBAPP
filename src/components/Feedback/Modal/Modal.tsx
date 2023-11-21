@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback } from 'react';
 import { HiXMark } from 'react-icons/hi2';
-import { ModalProps } from '../../../interface/components/modal.interface';
+import { ModalProps } from '../../../interface/components/Feedback/modal.interface';
 import './Modal.css';
 
 function Modal({

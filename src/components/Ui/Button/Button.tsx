@@ -1,4 +1,4 @@
-import { ButtonProps } from '../../../interface/components/button.interface';
+import { ButtonProps } from '../../../interface/components/Ui/button.interface';
 import './Button.css';
 
 function Button({

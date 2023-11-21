@@ -5,7 +5,7 @@ import Select from '../Select/Select';
 import Switch from '../../Ui/Switch/Switch';
 import './Form.css';
 
-import { FormProps } from '../../../interface/components/form.interface';
+import { FormProps } from '../../../interface/components/Other/form.interface';
 
 const Form = ({
     dataQuestion,
