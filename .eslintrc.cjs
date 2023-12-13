@@ -8,6 +8,7 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:react-hooks/recommended',
         'plugin:@typescript-eslint/recommended',
+        'prettier',
     ],
     ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
     parser: '@typescript-eslint/parser',
@@ -28,6 +29,11 @@ module.exports = {
         'import/prefer-default-export': 'off',
         'class-methods-use-this': 'off',
         'max-classes-per-file': 'off',
+        'jsx-a11y/label-has-associated-control': 'off',
+        'consistent-return': 'error',
+        'jsx-a11y/click-events-have-key-events': 'off',
+        '@typescript-eslint/no-unused-expressions': 'error',
+        'react/no-array-index-key': 'off',
         'no-underscore-dangle': [
             'off',
             {
@@ -67,6 +73,5 @@ module.exports = {
                 endOfLine: 'auto',
             },
         ],
-        '@typescript-eslint/no-explicit-any': 'off',
     },
 };

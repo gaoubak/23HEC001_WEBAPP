@@ -1,0 +1,47 @@
+.inputDiv {
+    position: relative;
+    border-bottom: 2px solid var(--color-turquoise);
+    margin: 15px 0;
+    width: 100%;
+}
+
+.inputDiv input {
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.inputDiv label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: var(--color-turquoise);
+    transform: translateY(-50%);
+    transition: 0.5s;
+    font-size: var(--font-label);
+}
+
+.inputDiv input:focus ~ label,
+.inputDiv input:valid ~ label {
+    top: -10px;
+    color: var(--color-turquoise-dark);
+}
+
+.inputDiv span::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--color-turquoise-dark);
+    transition: 0.5s;
+}
+
+.inputDiv input:focus ~ span::before,
+.inputDiv input:valid ~ span::before {
+    width: 100%;
+}

@@ -1,15 +1,16 @@
 import { useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, AuthContext } from './context/AuthContext';
-import Auth from './pages/Auth/Auth';
-import Home from './pages/Home/Home';
-import Channel from './pages/Channel/Channel';
-import Friend from './pages/Friend/Friend';
-import User from './pages/User/User';
-import Err from './pages/Err/Err';
+import { AuthProvider, AuthContext } from './context/auth.context';
+import Auth from './pages/auth';
+import Home from './pages/home';
+import Channel from './pages/channel';
+import Friend from './pages/friend';
+import User from './pages/user';
+import Err from './pages/err';
 import './App.css';
+import Background from './assets/image/Background.png';
 
-const App = () => {
+function App() {
     const { isLoggedIn } = useContext(AuthContext);
     return (
         <AuthProvider>
@@ -38,8 +39,9 @@ const App = () => {
                 />
                 <Route path="*" element={<Err />} />
             </Routes>
+            <img className="Background" src={Background} alt="Background" />
         </AuthProvider>
     );
-};
+}
 
 export default App;
