@@ -28,7 +28,6 @@ class ApiAuth {
     }
 
     static async login(userData: any): Promise<ApiReturn> {
-        console.log(userData);
         const apiProps: ApiProps = {
             url: 'http://127.0.0.1:8090/api/login_check',
             method: 'POST',

@@ -1,13 +1,16 @@
-import { api } from '../../utils/api.utils'; // Assurez-vous que le chemin est correct
+import Cookies from 'js-cookie';
+import { api } from '../../utils/api.utils';
 import { ApiProps, ApiReturn } from '../../interface/utils/api.interface';
 
 class ApiChanel {
     static async getChannels(): Promise<ApiReturn> {
+        const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: 'http://127.0.0.1:8090/chanels',
+            url: 'http://127.0.0.1:8090/api/chanels',
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             },
         };
 
@@ -15,11 +18,13 @@ class ApiChanel {
     }
 
     static async getChannelById(channelId: number): Promise<ApiReturn> {
+        const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/chanels/${channelId}`,
+            url: `http://127.0.0.1:8090/api/chanels/${channelId}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             },
         };
 
@@ -27,11 +32,13 @@ class ApiChanel {
     }
 
     static async createChannel(channelData: any): Promise<ApiReturn> {
+        const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: 'http://127.0.0.1:8090/chanels',
+            url: 'http://127.0.0.1:8090/api/chanels',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             },
             body: channelData,
         };
@@ -40,11 +47,13 @@ class ApiChanel {
     }
 
     static async deleteChannel(channelId: number): Promise<ApiReturn> {
+        const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/chanels/${channelId}`,
+            url: `http://127.0.0.1:8090/api/chanels/${channelId}`,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             },
         };
 

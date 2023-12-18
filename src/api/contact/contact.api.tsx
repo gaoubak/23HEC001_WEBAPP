@@ -1,74 +1,59 @@
-import { api } from '../../utils/api.utils'; // Assurez-vous que le chemin est correct
+import Cookies from 'js-cookie';
+import { api } from '../../utils/api.utils';
 import { ApiProps, ApiReturn } from '../../interface/utils/api.interface';
 
-class ApiMessage {
-    static async getMessages(): Promise<ApiReturn> {
+class ApiContact {
+    static async getFollowers(): Promise<ApiReturn> {
+        const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: 'http://127.0.0.1:8090/messages',
+            url: 'http://127.0.0.1:8000/api/followers',
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             },
         };
 
         return api(apiProps);
     }
 
-    static async getMessagesByChannel(channelId: number): Promise<ApiReturn> {
+    static async getFollowerById(followerId: number): Promise<ApiReturn> {
+        const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/messages/chanel/${channelId}`,
+            url: `http://127.0.0.1:8000/api/followers/${followerId}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             },
         };
 
         return api(apiProps);
     }
 
-    static async getMessagesByUser(userId: number): Promise<ApiReturn> {
+    static async createFollower(followerData: any): Promise<ApiReturn> {
+        const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/messages/user/${userId}`,
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
-        return api(apiProps);
-    }
-
-    static async getMessageById(messageId: number): Promise<ApiReturn> {
-        const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/messages/${messageId}`,
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
-        return api(apiProps);
-    }
-
-    static async createMessage(messageData: any): Promise<ApiReturn> {
-        const apiProps: ApiProps = {
-            url: 'http://127.0.0.1:8090/messages',
+            url: 'http://127.0.0.1:8000/api/followers',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             },
-            body: messageData,
+            body: followerData,
         };
 
         return api(apiProps);
     }
 
-    static async deleteMessage(messageId: number): Promise<ApiReturn> {
+    static async deleteFollower(followerId: number): Promise<ApiReturn> {
+        const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/messages/${messageId}`,
+            url: `http://127.0.0.1:8000/api/followers/${followerId}`,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             },
         };
 
@@ -76,4 +61,4 @@ class ApiMessage {
     }
 }
 
-export default ApiMessage;
+export default ApiContact;
