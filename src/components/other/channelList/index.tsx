@@ -1,11 +1,6 @@
-import './ChannelList.css';
-import { ChannelCardProps } from '../../../interface/components/other/channelCard.interface';
+import { ChannelListProps } from '../../../interface/components/other/channelCard.interface';
 import ChannelCard from '../chanelCard';
-import '../../../assets/style/components/other/channelCard.css';
-
-interface ChannelListProps {
-    channels: ChannelCardProps[];
-}
+import '../../../assets/style/components/other/channelList.css';
 
 function ChannelList({ channels }: ChannelListProps) {
     return (
@@ -15,6 +10,7 @@ function ChannelList({ channels }: ChannelListProps) {
                 {channels.map((channel, index) => (
                     <ChannelCard
                         key={index}
+                        id={channel.id}
                         name={channel.name}
                         description={channel.description}
                         followers={channel.followers}

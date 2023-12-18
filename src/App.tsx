@@ -19,7 +19,7 @@ function App() {
                     path="/"
                     element={isLoggedIn ? <Navigate to="/Home" /> : <Auth />}
                 />
-                <Route path="Home/:channelId">
+                <Route path="Home">
                     <Route
                         index
                         element={isLoggedIn ? <Home /> : <Navigate to="/" />}
@@ -34,9 +34,10 @@ function App() {
                     />
                 </Route>
                 <Route
-                    path="User/:userId"
+                    path="User"
                     element={isLoggedIn ? <User /> : <Navigate to="/" />}
                 />
+
                 <Route path="*" element={<Err />} />
             </Routes>
             <img className="Background" src={Background} alt="Background" />

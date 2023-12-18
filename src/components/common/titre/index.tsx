@@ -1,9 +1,12 @@
 import { TitreProps } from '../../../interface/components/common/titre.interface';
 import '../../../assets/style/components/common/titre.css';
 
-function Titre({ title, balise = 'h1', color }: TitreProps) {
+function Titre({ title, balise = 'h1', hasBorderBottom = false }: TitreProps) {
     const TagName = balise as keyof JSX.IntrinsicElements;
-    const titreClass = `titre ${color ? color : ''}`;
+    let titreClass = 'titre';
+    if (hasBorderBottom) {
+        titreClass += ' gradient-border';
+    }
 
     return <TagName className={titreClass}>{title}</TagName>;
 }

@@ -12,3 +12,7 @@ export type AlertProps = {
     icon?: React.ComponentType<{ className?: string }>;
     duration?: number;
 };
+
+export type ExtendedAlertProps = AlertProps & {
+    key: number;
+};

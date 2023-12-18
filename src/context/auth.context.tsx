@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useMemo, ReactNode } from 'react';
+import Cookies from 'js-cookie';
 
 interface AuthContextType {
     isLoggedIn: boolean;
@@ -18,7 +19,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        const authToken = localStorage.getItem('authToken');
+        const authToken = Cookies.get('authToken');
         setIsLoggedIn(!!authToken);
     }, []);
 

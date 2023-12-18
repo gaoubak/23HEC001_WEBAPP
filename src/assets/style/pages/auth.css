@@ -3,25 +3,40 @@
     flex-direction: column;
     gap: 20px;
     width: 100vw;
+    max-width: 85vw;
     align-items: center;
-    height: 100vh;
-    justify-content: center;
+    height: 85vh;
+    position: relative;
+    top: 7.5vh;
+    bottom: 7.5vh;
+    right: 7.5vw;
+    left: 7.5vw;
 }
 
 .auth-container .auth-form {
     position: relative;
+    max-width: 80vw;
+    overflow-x: hidden;
+    min-width: 500px;
+    max-width: 750px;
+    border-radius: 10px;
+    background-color: var(--color-turquoise-25);
+    box-shadow: 0px 0px 50px 0px var(--color-violet-50);
+    backdrop-filter: blur(5px);
+    padding: 30px;
+}
+
+.auth-container .auth-form-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    min-width: 350px;
-    max-width: 500px;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-turquoise-25);
-    backdrop-filter: blur(1px);
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.25);
+}
+
+.auth-container .auth-form-container img {
+    width: 100%;
+    max-width: 275px;
 }
 
 .auth-container .auth-form form {
@@ -31,18 +46,49 @@
     width: 100%;
 }
 
-.auth-container img {
-    position: absolute;
-    background-color: var(--color-white);
-    padding: 10px;
-    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    top: -50px;
-    left: -50px;
-    height: 100px;
-}
-
 .auth-container input,
 .auth-container button {
     width: 100%;
+}
+
+.logo-container {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+.logo-container div {
+    background-color: var(--color-white);
+    display: flex;
+    box-shadow: 0px 0px 50px 0px var(--color-violet-50);
+    border-radius: 10px;
+    padding: 10px;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    width: 50%;
+    min-width: 750px;
+    max-width: 1000px;
+    justify-content: center;
+}
+
+.logo-container img {
+    height: 75px;
+}
+
+.logo-container h1 {
+    width: fit-content;
+}
+
+@media (max-width: 1024px) {
+    .logo-container div {
+        min-width: 350px;
+        max-width: 400px;
+    }
+
+    .auth-container .auth-form {
+        min-width: 350px;
+        max-width: 400px;
+    }
 }

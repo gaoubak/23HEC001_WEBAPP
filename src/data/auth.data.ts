@@ -21,19 +21,11 @@ export const loginFormQuestions: Question[] = [
 
 export const registrationFormQuestions: Question[] = [
     {
-        id: 'firstName',
-        label: 'Prénom',
-        name: 'firstName',
+        id: 'username',
+        label: "Nom d'utilisateur",
+        name: 'username',
         type: 'text',
-        placeholder: 'Entrez votre prénom',
-        required: true,
-    },
-    {
-        id: 'lastName',
-        label: 'Nom de famille',
-        name: 'lastName',
-        type: 'text',
-        placeholder: 'Entrez votre nom de famille',
+        placeholder: "Entrez votre nom d'utilisateur",
         required: true,
     },
     {
@@ -45,9 +37,9 @@ export const registrationFormQuestions: Question[] = [
         required: true,
     },
     {
-        id: 'password',
+        id: 'plainPassword',
         label: 'Mot de passe',
-        name: 'password',
+        name: 'plainPassword',
         type: 'password',
         placeholder: 'Entrez votre mot de passe',
         required: true,

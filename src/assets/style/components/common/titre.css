@@ -1,16 +1,25 @@
 .titre {
-    padding-bottom: 1.25vw;
     width: 100%;
     text-align: center;
-    margin-bottom: 1.25vw;
-    border-bottom: 2px solid white;
+    color: transparent;
+    background: linear-gradient(
+        to left,
+        var(--color-violet),
+        var(--color-turquoise)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    display: inline-block;
 }
 
-.titre.violet {
-    color: #72297a;
-    border-bottom: 2px solid var(--color-violet);
-}
-.titre.turquoise {
-    color: #418596;
-    border-bottom: 2px solid var(--color-turquoise);
+.gradient-border {
+    border-bottom: 2px solid;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-image: linear-gradient(
+            to left,
+            var(--color-violet),
+            var(--color-turquoise)
+        )
+        1;
 }

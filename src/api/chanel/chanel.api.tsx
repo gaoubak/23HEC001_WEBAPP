@@ -1,54 +1,55 @@
-import useApi from '../../hooks/useApi';
+import { api } from '../../utils/api.utils'; // Assurez-vous que le chemin est correct
+import { ApiProps, ApiReturn } from '../../interface/utils/api.interface';
 
 class ApiChanel {
-    static getChannels = async () => {
-        const { fetchData, data, error, isLoading } = useApi({
-            url: 'http://127.0.0.1:8000/chanels',
+    static async getChannels(): Promise<ApiReturn> {
+        const apiProps: ApiProps = {
+            url: 'http://127.0.0.1:8090/chanels',
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-        });
+        };
 
-        return { fetchData, data, error, isLoading };
-    };
+        return api(apiProps);
+    }
 
-    static getChannelById = async (channelId: number) => {
-        const { fetchData, data, error, isLoading } = useApi({
-            url: `http://127.0.0.1:8000/chanels/${channelId}`,
+    static async getChannelById(channelId: number): Promise<ApiReturn> {
+        const apiProps: ApiProps = {
+            url: `http://127.0.0.1:8090/chanels/${channelId}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-        });
+        };
 
-        return { fetchData, data, error, isLoading };
-    };
+        return api(apiProps);
+    }
 
-    static createChannel = async (channelData: any) => {
-        const { fetchData, data, error, isLoading } = useApi({
-            url: `http://127.0.0.1:8000/chanels`,
+    static async createChannel(channelData: any): Promise<ApiReturn> {
+        const apiProps: ApiProps = {
+            url: 'http://127.0.0.1:8090/chanels',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: channelData,
-        });
+        };
 
-        return { fetchData, data, error, isLoading };
-    };
+        return api(apiProps);
+    }
 
-    static deleteChannel = async (channelId: number) => {
-        const { fetchData, data, error, isLoading } = useApi({
-            url: `http://127.0.0.1:8000/chanels/${channelId}`,
+    static async deleteChannel(channelId: number): Promise<ApiReturn> {
+        const apiProps: ApiProps = {
+            url: `http://127.0.0.1:8090/chanels/${channelId}`,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-        });
+        };
 
-        return { fetchData, data, error, isLoading };
-    };
+        return api(apiProps);
+    }
 }
 
 export default ApiChanel;

@@ -1,38 +1,68 @@
 import { useState, useEffect } from 'react';
-import { FaInfo } from 'react-icons/fa';
+import {
+    FaCheckCircle,
+    FaExclamationCircle,
+    FaExclamationTriangle,
+    FaInfoCircle,
+} from 'react-icons/fa';
+import '../../../assets/style/components/feedback/alert.css'; // Vérifiez le chemin
 import { AlertProps } from '../../../interface/components/feedback/alert.interface';
-import '../../../assets/style/components/feedback/alert.css';
 
 function Alert({
     type = 'info',
     message,
-    icon: IconComponent = FaInfo,
-    duration,
+    duration = 30000,
+    icon: IconComponent,
 }: AlertProps) {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        let timer: number | undefined;
-        if (duration !== 0) {
-            timer = setTimeout(() => setIsVisible(false), duration);
-        }
+        setIsVisible(true);
+
+        const timer =
+            duration !== 0
+                ? setTimeout(() => setIsVisible(false), duration)
+                : null;
+
         return () => {
             if (timer) {
                 clearTimeout(timer);
             }
         };
-    }, [duration]);
+    }, [duration, message]);
 
-    const handleClose = () => setIsVisible(false);
+    if (!isVisible) return null;
+
+    const getIcon = () => {
+        if (IconComponent) return <IconComponent />;
+
+        switch (type) {
+            case 'success':
+                return <FaCheckCircle />;
+            case 'error':
+                return <FaExclamationCircle />;
+            case 'warning':
+                return <FaExclamationTriangle />;
+            case 'info':
+            case 'default':
+            default:
+                return <FaInfoCircle />;
+        }
+    };
 
     return isVisible ? (
         <div
             className={`Notif ${type}`}
-            onClick={handleClose}
+            onClick={() => setIsVisible(false)}
             role="button"
             tabIndex={0}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    setIsVisible(false);
+                }
+            }}
         >
-            <IconComponent className="icon-class-name" />
+            {getIcon()}
             <h4>{message}</h4>
         </div>
     ) : null;

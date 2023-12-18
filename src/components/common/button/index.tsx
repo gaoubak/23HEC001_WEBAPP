@@ -10,7 +10,7 @@ function Button({
     variant = 'primary',
     outline = false,
 }: ButtonProps) {
-    let buttonClasses = `button ${
+    const buttonClasses = `button ${
         outline ? `outline outline-${variant}` : variant
     }`;
 

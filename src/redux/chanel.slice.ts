@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ChanelState {
-    value: string | null | number;
+    value: number | null;
 }
 
 const initialState: ChanelState = {

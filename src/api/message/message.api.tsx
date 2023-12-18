@@ -1,108 +1,79 @@
-import useApi from '../../hooks/useApi';
+import { api } from '../../utils/api.utils';
+import { ApiProps, ApiReturn } from '../../interface/utils/api.interface';
 
 class ApiMessage {
-    static getMessages = async () => {
-        const { fetchData, data, error, isLoading } = useApi({
-            url: 'http://127.0.0.1:8000/messages',
+    static async getMessages(): Promise<ApiReturn> {
+        const apiProps: ApiProps = {
+            url: 'http://127.0.0.1:8090/messages',
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-        });
-
-        return {
-            fetchData,
-            data,
-            error,
-            isLoading,
         };
-    };
 
-    static getMessagesByChannel = async (channelId: number) => {
-        const { fetchData, data, error, isLoading } = useApi({
-            url: `http://127.0.0.1:8000/messages/chanel/${channelId}`,
+        return api(apiProps);
+    }
+
+    static async getMessagesByChannel(channelId: number): Promise<ApiReturn> {
+        const apiProps: ApiProps = {
+            url: `http://127.0.0.1:8090/messages/chanel/${channelId}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-        });
-
-        return {
-            fetchData,
-            data,
-            error,
-            isLoading,
         };
-    };
 
-    static getMessagesByUser = async (userId: number) => {
-        const { fetchData, data, error, isLoading } = useApi({
-            url: `http://127.0.0.1:8000/messages/user/${userId}`,
+        return api(apiProps);
+    }
+
+    static async getMessagesByUser(userId: number): Promise<ApiReturn> {
+        const apiProps: ApiProps = {
+            url: `http://127.0.0.1:8090/messages/user/${userId}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-        });
-
-        return {
-            fetchData,
-            data,
-            error,
-            isLoading,
         };
-    };
 
-    static getMessageById = async (messageId: number) => {
-        const { fetchData, data, error, isLoading } = useApi({
-            url: `http://127.0.0.1:8000/messages/${messageId}`,
+        return api(apiProps);
+    }
+
+    static async getMessageById(messageId: number): Promise<ApiReturn> {
+        const apiProps: ApiProps = {
+            url: `http://127.0.0.1:8090/messages/${messageId}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-        });
-
-        return {
-            fetchData,
-            data,
-            error,
-            isLoading,
         };
-    };
 
-    static createMessage = async (messageData: any) => {
-        const { fetchData, data, error, isLoading } = useApi({
-            url: 'http://127.0.0.1:8000/messages',
+        return api(apiProps);
+    }
+
+    static async createMessage(messageData: any): Promise<ApiReturn> {
+        const apiProps: ApiProps = {
+            url: 'http://127.0.0.1:8090/messages',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: messageData,
-        });
-
-        return {
-            fetchData,
-            data,
-            error,
-            isLoading,
         };
-    };
 
-    static deleteMessage = async (messageId: number) => {
-        const { fetchData, data, error, isLoading } = useApi({
-            url: `http://127.0.0.1:8000/messages/${messageId}`,
+        return api(apiProps);
+    }
+
+    static async deleteMessage(messageId: number): Promise<ApiReturn> {
+        const apiProps: ApiProps = {
+            url: `http://127.0.0.1:8090/messages/${messageId}`,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-        });
-
-        return {
-            fetchData,
-            data,
-            error,
-            isLoading,
         };
-    };
+
+        return api(apiProps);
+    }
 }
 
 export default ApiMessage;

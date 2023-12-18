@@ -29,7 +29,7 @@ function Input({
                 onChange={onChange}
                 required
             />
-            <span></span>
+            <span />
             {label && <label htmlFor={id}>{label}</label>}
             {variant === 'inputIcon' && Icon && <Icon className="input-icon" />}
             {error && <p className="input-error-message">{error}</p>}
