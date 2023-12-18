@@ -34,7 +34,7 @@ function Auth() {
     };
 
     const handleLogin = async () => {
-        if (!formData.username || !formData.plainPassword) {
+        if (!formData.email || !formData.password) {
             throw new Error(
                 'Veuillez fournir un nom d’utilisateur et un mot de passe.'
             );
@@ -42,27 +42,27 @@ function Auth() {
 
         const loginData = {
             username: formData.email,
-            password: formData.plainPassword,
+            plainPassword: formData.password,
         };
 
         return ApiAuth.login(loginData);
     };
 
     const handleRegister = async () => {
-        if (!formData.email || !formData.username || !formData.plainPassword) {
+        if (!formData.email || !formData.username || !formData.password) {
             throw new Error(
                 'Veuillez fournir des informations valides pour l’inscription.'
             );
         }
 
-        if (formData.plainPassword !== formData.confirmPassword) {
+        if (formData.Password !== formData.confirmPassword) {
             throw new Error('Les mots de passe ne correspondent pas!');
         }
 
         const registerData = {
             email: formData.email,
             username: formData.username,
-            password: formData.plainPassword,
+            plainPassword: formData.password,
         };
 
         return ApiAuth.register(registerData);
