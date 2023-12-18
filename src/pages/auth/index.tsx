@@ -33,39 +33,68 @@ function Auth() {
         setIsLoading(false);
     };
 
-    const checkPasswords = () => {
-        if (isLogin) return true;
-        return formData.plainPassword === formData.confirmPassword;
+    const handleLogin = async () => {
+        if (!formData.username || !formData.plainPassword) {
+            throw new Error(
+                'Veuillez fournir un nom d’utilisateur et un mot de passe.'
+            );
+        }
+
+        const loginData = {
+            username: formData.email,
+            password: formData.plainPassword,
+        };
+
+        return ApiAuth.login(loginData);
+    };
+
+    const handleRegister = async () => {
+        if (!formData.email || !formData.username || !formData.plainPassword) {
+            throw new Error(
+                'Veuillez fournir des informations valides pour l’inscription.'
+            );
+        }
+
+        if (formData.plainPassword !== formData.confirmPassword) {
+            throw new Error('Les mots de passe ne correspondent pas!');
+        }
+
+        const registerData = {
+            email: formData.email,
+            username: formData.username,
+            password: formData.plainPassword,
+        };
+
+        return ApiAuth.register(registerData);
     };
 
     const handleSubmit = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         setIsLoading(true);
-        if (!checkPasswords()) {
-            setAlert({
-                type: 'error',
-                message: 'Les mots de passe ne correspondent pas!',
-                key: Date.now(),
-            });
-            return;
-        }
 
         try {
             const response = isLogin
-                ? await ApiAuth.login(formData)
-                : await ApiAuth.register(formData);
-
-            if (response.error) {
-                throw new Error(response.error);
-            }
+                ? await handleLogin()
+                : await handleRegister();
+            console.log(response);
         } catch (error) {
-            setAlert({
-                type: 'error',
-                message: "Une erreur s'est produite lors de l'authentification",
-                key: Date.now(),
-            });
+            if (error instanceof Error) {
+                setAlert({
+                    type: 'error',
+                    message: error.message,
+                    key: Date.now(),
+                });
+            } else {
+                setAlert({
+                    type: 'error',
+                    message:
+                        "Une erreur s'est produite lors de l'authentification",
+                    key: Date.now(),
+                });
+            }
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     };
 
     return (

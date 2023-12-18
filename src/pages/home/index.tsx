@@ -14,6 +14,7 @@ function Home() {
     );
     const [channels, setChannels] = React.useState([]);
     const [messages, setMessages] = React.useState([]);
+    const currentUser = useSelector((state: RootState) => state.user.value);
 
     useEffect(() => {
         const fetchChannels = async () => {
@@ -39,7 +40,7 @@ function Home() {
     return (
         <div>
             <ChannelList channels={channels} />
-            <MessageContent messages={messages} />
+            <MessageContent messages={messages} currentUser={currentUser} />
         </div>
     );
 }

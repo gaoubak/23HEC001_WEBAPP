@@ -1,10 +1,10 @@
 import { api } from '../../utils/api.utils';
 import { ApiProps, ApiReturn } from '../../interface/utils/api.interface';
 
-class ApiMessage {
-    static async getMessages(): Promise<ApiReturn> {
+class ApiUser {
+    static async getUsers(): Promise<ApiReturn> {
         const apiProps: ApiProps = {
-            url: 'http://127.0.0.1:8090/messages',
+            url: 'http://127.0.0.1:8090/users',
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -14,9 +14,9 @@ class ApiMessage {
         return api(apiProps);
     }
 
-    static async getMessagesByChannel(channelId: number): Promise<ApiReturn> {
+    static async getUserById(userId: number): Promise<ApiReturn> {
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/messages/chanel/${channelId}`,
+            url: `http://127.0.0.1:8090/users/${userId}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,46 +26,22 @@ class ApiMessage {
         return api(apiProps);
     }
 
-    static async getMessagesByUser(userId: number): Promise<ApiReturn> {
+    static async updateUser(userId: number, userData: any): Promise<ApiReturn> {
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/messages/user/${userId}`,
-            method: 'GET',
+            url: `http://127.0.0.1:8090/users/${userId}`,
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
+            body: userData,
         };
 
         return api(apiProps);
     }
 
-    static async getMessageById(messageId: number): Promise<ApiReturn> {
+    static async deleteUser(userId: number): Promise<ApiReturn> {
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/messages/${messageId}`,
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
-        return api(apiProps);
-    }
-
-    static async createMessage(messageData: any): Promise<ApiReturn> {
-        const apiProps: ApiProps = {
-            url: 'http://127.0.0.1:8090/messages',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: messageData,
-        };
-
-        return api(apiProps);
-    }
-
-    static async deleteMessage(messageId: number): Promise<ApiReturn> {
-        const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/messages/${messageId}`,
+            url: `http://127.0.0.1:8090/users/${userId}`,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -76,4 +52,4 @@ class ApiMessage {
     }
 }
 
-export default ApiMessage;
+export default ApiUser;
