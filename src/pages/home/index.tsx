@@ -40,7 +40,10 @@ function Home() {
     return (
         <div>
             <ChannelList channels={channels} />
-            <MessageContent messages={messages} currentUser={currentUser} />
+            <MessageContent
+                messages={messages}
+                currentUser={currentUser ?? ''}
+            />
         </div>
     );
 }

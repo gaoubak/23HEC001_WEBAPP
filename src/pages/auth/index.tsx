@@ -14,6 +14,7 @@ import logo from '../../assets/image/BlablaChat.png';
 import Welcom from '../../assets/image/undraw_welcome.svg';
 import Login from '../../assets/image/undraw_login.svg';
 import Loader from '../../components/feedback/loader';
+import { ApiReturn } from '../../interface/utils/api.interface';
 
 function Auth() {
     const [isLogin, setIsLogin] = useState(true);
@@ -33,68 +34,60 @@ function Auth() {
         setIsLoading(false);
     };
 
-    const handleLogin = async () => {
-        if (!formData.email || !formData.password) {
-            throw new Error(
-                'Veuillez fournir un nom d’utilisateur et un mot de passe.'
-            );
-        }
-
-        const loginData = {
-            username: formData.email,
-            plainPassword: formData.password,
-        };
-
-        return ApiAuth.login(loginData);
+    const handleAuthError = (error: unknown) => {
+        const errorMessage =
+            error instanceof Error
+                ? error.message
+                : "Une erreur s'est produite lors de l'authentification";
+        setAlert({ type: 'error', message: errorMessage, key: Date.now() });
     };
 
-    const handleRegister = async () => {
-        if (!formData.email || !formData.username || !formData.password) {
-            throw new Error(
-                'Veuillez fournir des informations valides pour l’inscription.'
-            );
+    const authenticate = async (
+        data: { username: any; password: any; email?: any },
+        apiMethod: {
+            (userData: any): Promise<ApiReturn>;
+            (userData: any): Promise<ApiReturn>;
+            (arg0: any): any;
         }
-
-        if (formData.Password !== formData.confirmPassword) {
-            throw new Error('Les mots de passe ne correspondent pas!');
+    ) => {
+        try {
+            const response = await apiMethod(data);
+            console.log(response);
+        } catch (error) {
+            handleAuthError(error);
         }
-
-        const registerData = {
-            email: formData.email,
-            username: formData.username,
-            plainPassword: formData.password,
-        };
-
-        return ApiAuth.register(registerData);
     };
 
     const handleSubmit = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         setIsLoading(true);
 
-        try {
-            const response = isLogin
-                ? await handleLogin()
-                : await handleRegister();
-            console.log(response);
-        } catch (error) {
-            if (error instanceof Error) {
-                setAlert({
-                    type: 'error',
-                    message: error.message,
-                    key: Date.now(),
-                });
-            } else {
-                setAlert({
-                    type: 'error',
-                    message:
-                        "Une erreur s'est produite lors de l'authentification",
-                    key: Date.now(),
-                });
+        if (isLogin) {
+            await authenticate(
+                {
+                    username: formData.email,
+                    password: formData.password,
+                },
+                ApiAuth.login
+            );
+        } else {
+            if (formData.password !== formData.confirmPassword) {
+                handleAuthError(
+                    new Error('Les mots de passe ne correspondent pas!')
+                );
+                return;
             }
-        } finally {
-            setIsLoading(false);
+            await authenticate(
+                {
+                    email: formData.email,
+                    username: formData.username,
+                    password: formData.password,
+                },
+                ApiAuth.register
+            );
         }
+
+        setIsLoading(false);
     };
 
     return (
