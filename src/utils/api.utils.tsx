@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { ApiProps, ApiReturn } from '../interface/utils/api.interface';
 
 export async function api({
@@ -14,6 +15,10 @@ export async function api({
         });
 
         if (!response.ok) {
+            if (response.status === 401) {
+                Cookies.remove('authToken');
+                window.location.reload();
+            }
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 

@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { NavIconProps } from '../../../interface/components/layout/navIcon.interface';
-import '../../../assets/styles/components/layout/navIcon/NavIcon.css';
+import '../../../assets/style/components/layout/navIcon.css';
 
 function NavIcon({ item }: NavIconProps) {
     const location = useLocation();

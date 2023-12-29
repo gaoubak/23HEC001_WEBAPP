@@ -223,6 +223,8 @@ input::placeholder {
 
 button {
     font-size: var(--font-button);
+    border: none;
+    background: none;
 }
 
 i {

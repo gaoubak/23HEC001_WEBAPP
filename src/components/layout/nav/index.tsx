@@ -1,30 +1,17 @@
-import { useState, useEffect } from 'react';
 import { MdExitToApp } from 'react-icons/md';
 import NavIcon from '../navIcon';
 import navItems from '../../../data/nav.data';
 import { useLogout } from '../../../utils/logout.utils';
-import '../../../assets/styles/components/layout/nav/Navbar.css';
+import useWindowSize from '../../../hooks/useWindowSize';
+import '../../../assets/style/components/layout/nav.css';
 
 function Navbar() {
-    const [isMobile, setIsMobile] = useState(false);
+    const { width } = useWindowSize();
     const logout = useLogout();
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 1024);
-        };
-
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    const handleLogout = () => {
-        logout();
-    };
+    const isMobile = width < 720;
 
     return (
-        <div>
+        <div className="NavBar">
             {isMobile ? (
                 navItems.map((item) => <NavIcon key={item.name} item={item} />)
             ) : (
@@ -37,7 +24,7 @@ function Navbar() {
             <button
                 className="NavIon Selected"
                 type="button"
-                onClick={handleLogout}
+                onClick={logout}
                 aria-label="Logout"
             >
                 <MdExitToApp />

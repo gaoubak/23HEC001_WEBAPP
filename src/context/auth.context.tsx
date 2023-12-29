@@ -21,6 +21,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
     useEffect(() => {
         const authToken = Cookies.get('authToken');
         setIsLoggedIn(!!authToken);
+
+        const handleCookieChange = () => {
+            const newAuthToken = Cookies.get('authToken');
+            setIsLoggedIn(!!newAuthToken);
+
+            if (!newAuthToken) {
+                window.location.href = '/';
+            }
+        };
+
+        window.addEventListener('cookieChange', handleCookieChange);
+
+        return () => {
+            window.removeEventListener('cookieChange', handleCookieChange);
+        };
     }, []);
 
     const contextValue = useMemo(

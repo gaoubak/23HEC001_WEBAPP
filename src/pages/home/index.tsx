@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Loader from '../../components/feedback/loader';
 import ChannelList from '../../components/other/channelList';
 import MessageContent from '../../components/other/messageContent';
 import ApiChanel from '../../api/chanel/chanel.api';
@@ -12,24 +13,27 @@ function Home() {
     const selectedChannel = useSelector(
         (state: RootState) => state.chanel.value
     );
-    const [channels, setChannels] = React.useState([]);
-    const [messages, setMessages] = React.useState([]);
+    const [channels, setChannels] = useState([]);
+    const [messages, setMessages] = useState([]);
     const currentUser = useSelector((state: RootState) => state.user.value);
+    const [isloading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchChannels = async () => {
-            const response = await ApiChanel.getChannels();
-            setChannels(response.data);
-            if (!selectedChannel && response.data && response.data.length > 0) {
-                dispatch(chanelSend(response.data[0].id));
+            const { data, isLoading } = await ApiChanel.getChannels();
+            setIsLoading(isLoading);
+            setChannels(data);
+            if (!selectedChannel && data && data.length > 0) {
+                dispatch(chanelSend(data[0].id));
             }
         };
 
         const fetchMessages = async () => {
             if (selectedChannel) {
-                const response =
+                const { data, isLoading } =
                     await ApiMessage.getMessagesByChannel(selectedChannel);
-                setMessages(response.data);
+                setIsLoading(isLoading);
+                setMessages(data);
             }
         };
 
@@ -38,13 +42,16 @@ function Home() {
     }, [selectedChannel, dispatch]);
 
     return (
-        <div>
-            <ChannelList channels={channels} />
-            <MessageContent
-                messages={messages}
-                currentUser={currentUser ?? ''}
-            />
-        </div>
+        <>
+            {isloading && <Loader />}
+            <div>
+                <ChannelList channels={channels} />
+                <MessageContent
+                    messages={messages}
+                    currentUser={currentUser ?? ''}
+                />
+            </div>
+        </>
     );
 }
 

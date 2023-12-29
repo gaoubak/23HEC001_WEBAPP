@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import {
     loginFormQuestions,
     registrationFormQuestions,
@@ -10,9 +10,13 @@ import Form from '../../components/common/form';
 import ApiAuth from '../../api/auth/auth.api';
 import '../../assets/style/pages/auth.css';
 import Titre from '../../components/common/titre';
-import logo from '../../assets/image/BlablaChat.png';
-import Welcom from '../../assets/image/undraw_welcome.svg';
-import Login from '../../assets/image/undraw_login.svg';
+import logo from '../../assets/image/png/BlablaChat.png';
+import logoWebp from '../../assets/image/webp/BlablaChat.webp';
+import Welcom from '../../assets/image/svg/undraw_welcome.svg';
+import Login from '../../assets/image/svg/undraw_login.svg';
+import WelcomWebp from '../../assets/image/webp/undraw_welcome.webp';
+import LoginWebp from '../../assets/image/webp/undraw_login.webp';
+import Picture from '../../components/common/picture';
 import Loader from '../../components/feedback/loader';
 import { ApiReturn } from '../../interface/utils/api.interface';
 
@@ -26,69 +30,62 @@ function Auth() {
         key: Date.now(),
     });
 
-    const toggleAuthMode = () => {
-        setIsLoading(true);
-        setIsLogin(!isLogin);
+    const toggleAuthMode = useCallback(() => {
+        setIsLogin((prevIsLogin) => !prevIsLogin);
         setFormData({});
         setAlert({ type: '', message: '', key: Date.now() });
-        setIsLoading(false);
-    };
+    }, []);
 
-    const handleAuthError = (error: unknown) => {
-        const errorMessage =
-            error instanceof Error
-                ? error.message
-                : "Une erreur s'est produite lors de l'authentification";
+    const handleAuthError = useCallback((error: Error | string) => {
+        const errorMessage = typeof error === 'string' ? error : error.message;
         setAlert({ type: 'error', message: errorMessage, key: Date.now() });
-    };
+    }, []);
 
-    const authenticate = async (
-        data: { username: any; password: any; email?: any },
-        apiMethod: {
-            (userData: any): Promise<ApiReturn>;
-            (userData: any): Promise<ApiReturn>;
-            (arg0: any): any;
-        }
-    ) => {
-        try {
-            const response = await apiMethod(data);
-            console.log(response);
-        } catch (error) {
-            handleAuthError(error);
-        }
-    };
+    const authenticate = useCallback(
+        async (data: any, apiMethod: (userData: any) => Promise<ApiReturn>) => {
+            setIsLoading(true);
+            try {
+                const { data: responseData, error } = await apiMethod(data);
 
-    const handleSubmit = async (event: { preventDefault: () => void }) => {
-        event.preventDefault();
-        setIsLoading(true);
-
-        if (isLogin) {
-            await authenticate(
-                {
-                    username: formData.email,
-                    password: formData.password,
-                },
-                ApiAuth.login
-            );
-        } else {
-            if (formData.password !== formData.confirmPassword) {
+                if (error) {
+                    throw new Error(error);
+                }
+                console.log(responseData);
+            } catch (error) {
                 handleAuthError(
-                    new Error('Les mots de passe ne correspondent pas!')
+                    error instanceof Error ? error : "Erreur d'authentification"
                 );
+            } finally {
+                setIsLoading(false);
+                window.location.reload();
+            }
+        },
+        [handleAuthError]
+    );
+
+    const handleSubmit = useCallback(
+        async (event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+            const authData = isLogin
+                ? { username: formData.email, password: formData.password }
+                : {
+                      email: formData.email,
+                      username: formData.username,
+                      plainPassword: formData.password,
+                  };
+
+            if (!isLogin && formData.password !== formData.confirmPassword) {
+                handleAuthError('Les mots de passe ne correspondent pas!');
                 return;
             }
-            await authenticate(
-                {
-                    email: formData.email,
-                    username: formData.username,
-                    password: formData.password,
-                },
-                ApiAuth.register
-            );
-        }
 
-        setIsLoading(false);
-    };
+            await authenticate(
+                authData,
+                isLogin ? ApiAuth.login : ApiAuth.register
+            );
+        },
+        [isLogin, formData, authenticate, handleAuthError]
+    );
 
     return (
         <>
@@ -103,20 +100,22 @@ function Auth() {
             )}
 
             <div className="auth-container">
-                <div className="logo-container">
-                    <div>
-                        <img src={logo} alt="logo" />
-                        <Titre title="BlablaChat" balise="h1" />
-                    </div>
-                </div>
                 <div className="auth-form">
                     <div className="auth-form-container">
-                        <Titre
-                            title={isLogin ? 'Connexion' : 'Inscription'}
-                            balise="h2"
-                            hasBorderBottom
+                        <div className="logo-container">
+                            <Picture
+                                webpSrc={logoWebp}
+                                fallbackSrc={logo}
+                                alt="logo"
+                            />
+                            <Titre title="BlablaChat" balise="h1" />
+                        </div>
+
+                        <Picture
+                            webpSrc={isLogin ? LoginWebp : WelcomWebp}
+                            fallbackSrc={isLogin ? Login : Welcom}
+                            alt="logo"
                         />
-                        <img src={isLogin ? Login : Welcom} alt="ImgAuth" />
                         <Form
                             dataQuestion={
                                 isLogin

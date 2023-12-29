@@ -37,9 +37,9 @@ export const registrationFormQuestions: Question[] = [
         required: true,
     },
     {
-        id: 'plainPassword',
+        id: 'password',
         label: 'Mot de passe',
-        name: 'plainPassword',
+        name: 'password',
         type: 'password',
         placeholder: 'Entrez votre mot de passe',
         required: true,
