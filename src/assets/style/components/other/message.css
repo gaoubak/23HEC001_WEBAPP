@@ -6,31 +6,32 @@
 
 .message {
     max-width: 70%;
-    padding: 10px;
-    margin: 10px;
+    padding: var(--spacing-m);
+    margin: var(--spacing-m);
     border-radius: 15px;
+    font-size: var(--font-p);
 }
 
 .message.right {
     align-self: flex-end;
-    background-color: #e1f5fe;
+    background-color: var(--color-turquoise-light);
 }
 
 .message.left {
     align-self: flex-start;
-    background-color: #e8eaf6;
+    background-color: var(--color-violet-light);
 }
 
 .message-info {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8em;
+    font-size: var(--font-small);
 }
 
 .message-username {
-    color: #546e7a;
+    color: var(--color-black);
 }
 
 .message-date {
-    color: #78909c;
+    color: var(--color-gray);
 }

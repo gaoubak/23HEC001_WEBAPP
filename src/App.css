@@ -21,7 +21,7 @@
     grid-template-columns: 60px 1fr;
     gap: 30px;
     height: 100vh;
-    padding: 7.5vh 7.5vw;
+    padding: 5vh 5vw;
 }
 
 @media screen and (max-width: 720px) {
@@ -31,6 +31,8 @@
         flex-direction: column-reverse;
         justify-content: flex-start;
         align-items: stretch;
+        padding: 0;
+        gap: 0;
     }
     
 }

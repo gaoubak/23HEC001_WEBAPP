@@ -3,7 +3,7 @@ import { ChannelCardProps } from '../../../interface/components/other/channelCar
 import '../../../assets/style/components/other/chanelCard.css';
 import { chanelSend } from '../../../redux/chanel.slice';
 
-function ChannelCard({ id, name, description, followers }: ChannelCardProps) {
+function ChannelCard({ id, nom, users }: ChannelCardProps) {
     const dispatch = useDispatch();
 
     const handleChannelSelect = () => {
@@ -17,9 +17,8 @@ function ChannelCard({ id, name, description, followers }: ChannelCardProps) {
             role="button"
             tabIndex={0}
         >
-            <h2>{name}</h2>
-            <p>{description}</p>
-            <p>{followers} Followers</p>
+            <h4>{nom}</h4>
+            <p>{users.length} Followers</p>
         </div>
     );
 }

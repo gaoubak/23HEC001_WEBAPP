@@ -1,7 +1,15 @@
-interface MessageData {
-    date: string;
-    message: string;
+export interface UserData {
+    email: string;
+    id: number;
+    userPhoto: string | null;
     username: string;
+}
+
+export interface MessageData {
+    date: string;
+    id: number;
+    user: UserData;
+    userText: string;
 }
 
 export interface MessageProps {

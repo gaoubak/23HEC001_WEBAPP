@@ -24,7 +24,13 @@
     --font-small: 16px;
 
     --color-black: rgba(31, 31, 31, 1);
+    --color-black-25: rgba(31, 31, 31, 0.25);
+    --color-black-50: rgba(31, 31, 31, 0.5);
+    --color-black-75: rgba(31, 31, 31, 0.75);
     --color-white: rgba(235, 235, 235, 1);
+    --color-white-25: rgba(235, 235, 235, 0.25);
+    --color-white-50: rgba(235, 235, 235, 0.5);
+    --color-white-75: rgba(235, 235, 235, 0.75);
     --color-gray: rgba(71, 71, 71, 1);
     --color-violet: rgba(114, 41, 122, 1);
     --color-violet-25: rgba(114, 41, 122, 0.25);
@@ -202,6 +208,11 @@ input {
     border: none;
     background: none;
     color: white;
+}
+
+input::focus {
+    background-color: none;
+    border: none;
 }
 
 input[type='submit'] {

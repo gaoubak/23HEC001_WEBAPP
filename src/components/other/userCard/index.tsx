@@ -1,13 +1,12 @@
 import { ProfileCardProps } from '../../../interface/components/other/profileCard.interface';
-import '../../../assets/style/components/other/profileCard.css';
+import '../../../assets/style/components/other/userCard.css';
 
-function ProfileCard({ name, username, bio, avatar }: ProfileCardProps) {
+function ProfileCard({ name, username, avatar }: ProfileCardProps) {
     return (
         <div className="profile-card">
             <img src={avatar} alt={`${username}'s avatar`} />
             <h2>{name}</h2>
             <p>@{username}</p>
-            <p>{bio}</p>
         </div>
     );
 }

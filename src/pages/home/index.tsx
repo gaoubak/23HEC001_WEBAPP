@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 import Loader from '../../components/feedback/loader';
 import ChannelList from '../../components/other/channelList';
 import MessageContent from '../../components/other/messageContent';
@@ -7,6 +8,7 @@ import ApiChanel from '../../api/chanel/chanel.api';
 import ApiMessage from '../../api/message/message.api';
 import { chanelSend } from '../../redux/chanel.slice';
 import { RootState } from '../../redux/store';
+import '../../assets/style/pages/home.css';
 
 function Home() {
     const dispatch = useDispatch();
@@ -16,24 +18,30 @@ function Home() {
     const [channels, setChannels] = useState([]);
     const [messages, setMessages] = useState([]);
     const currentUser = useSelector((state: RootState) => state.user.value);
+    const [isChannelsLoading, setIsChannelsLoading] = useState(true);
+    const [isMessagesLoading, setIsMessagesLoading] = useState(true);
     const [isloading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchChannels = async () => {
-            const { data, isLoading } = await ApiChanel.getChannels();
-            setIsLoading(isLoading);
+            setIsChannelsLoading(true);
+            const { data } = await ApiChanel.getChannels();
+            setIsChannelsLoading(false);
             setChannels(data);
             if (!selectedChannel && data && data.length > 0) {
                 dispatch(chanelSend(data[0].id));
             }
+            console.log(data);
         };
 
         const fetchMessages = async () => {
             if (selectedChannel) {
-                const { data, isLoading } =
+                setIsMessagesLoading(true);
+                const { data } =
                     await ApiMessage.getMessagesByChannel(selectedChannel);
-                setIsLoading(isLoading);
+                setIsMessagesLoading(false);
                 setMessages(data);
+                console.log(data);
             }
         };
 
@@ -41,15 +49,24 @@ function Home() {
         fetchMessages();
     }, [selectedChannel, dispatch]);
 
+    useEffect(() => {
+        setIsLoading(isChannelsLoading || isMessagesLoading);
+    }, [isChannelsLoading, isMessagesLoading]);
+
+    useEffect(() => {
+        console.log('channels', selectedChannel);
+    }, [selectedChannel]);
+
     return (
         <>
             {isloading && <Loader />}
-            <div>
+            <div className="Content">
                 <ChannelList channels={channels} />
                 <MessageContent
                     messages={messages}
                     currentUser={currentUser ?? ''}
                 />
+                <Outlet />
             </div>
         </>
     );

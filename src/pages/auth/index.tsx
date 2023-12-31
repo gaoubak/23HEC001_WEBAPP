@@ -131,11 +131,6 @@ function Auth() {
                             role="button"
                             tabIndex={0}
                             onClick={toggleAuthMode}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                    toggleAuthMode();
-                                }
-                            }}
                         >
                             {isLogin
                                 ? "Pas encore de compte? S'inscrire"
