@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-import Loader from '../../components/feedback/loader';
 import ChannelList from '../../components/other/channelList';
 import MessageContent from '../../components/other/messageContent';
 import ApiChanel from '../../api/chanel/chanel.api';
@@ -20,7 +19,6 @@ function Home() {
     const currentUser = useSelector((state: RootState) => state.user.value);
     const [isChannelsLoading, setIsChannelsLoading] = useState(true);
     const [isMessagesLoading, setIsMessagesLoading] = useState(true);
-    const [isloading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchChannels = async () => {
@@ -31,7 +29,6 @@ function Home() {
             if (!selectedChannel && data && data.length > 0) {
                 dispatch(chanelSend(data[0].id));
             }
-            console.log(data);
         };
 
         const fetchMessages = async () => {
@@ -41,7 +38,6 @@ function Home() {
                     await ApiMessage.getMessagesByChannel(selectedChannel);
                 setIsMessagesLoading(false);
                 setMessages(data);
-                console.log(data);
             }
         };
 
@@ -49,26 +45,16 @@ function Home() {
         fetchMessages();
     }, [selectedChannel, dispatch]);
 
-    useEffect(() => {
-        setIsLoading(isChannelsLoading || isMessagesLoading);
-    }, [isChannelsLoading, isMessagesLoading]);
-
-    useEffect(() => {
-        console.log('channels', selectedChannel);
-    }, [selectedChannel]);
-
     return (
-        <>
-            {isloading && <Loader />}
-            <div className="Content">
-                <ChannelList channels={channels} />
-                <MessageContent
-                    messages={messages}
-                    currentUser={currentUser ?? ''}
-                />
-                <Outlet />
-            </div>
-        </>
+        <div className="Content">
+            <ChannelList channels={channels} isloading={isChannelsLoading} />
+            <MessageContent
+                messages={messages}
+                currentUser={currentUser ?? ''}
+                isloading={isMessagesLoading}
+            />
+            <Outlet />
+        </div>
     );
 }
 

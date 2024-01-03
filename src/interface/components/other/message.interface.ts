@@ -15,4 +15,5 @@ export interface MessageData {
 export interface MessageProps {
     currentUser: string;
     messages: MessageData[];
+    isloading?: boolean;
 }

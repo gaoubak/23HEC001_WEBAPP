@@ -45,12 +45,11 @@ function Auth() {
         async (data: any, apiMethod: (userData: any) => Promise<ApiReturn>) => {
             setIsLoading(true);
             try {
-                const { data: responseData, error } = await apiMethod(data);
+                const { data: error } = await apiMethod(data);
 
                 if (error) {
                     throw new Error(error);
                 }
-                console.log(responseData);
             } catch (error) {
                 handleAuthError(
                     error instanceof Error ? error : "Erreur d'authentification"

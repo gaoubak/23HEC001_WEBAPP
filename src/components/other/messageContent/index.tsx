@@ -4,10 +4,11 @@ import Message from '../message';
 import Button from '../../common/button';
 import { MessageProps } from '../../../interface/components/other/message.interface';
 import '../../../assets/style/components/other/messageContent.css';
+import Loader from '../../feedback/loader';
 
 import ApiMessage from '../../../api/message/message.api';
 
-function MessageContent({ currentUser, messages }: MessageProps) {
+function MessageContent({ currentUser, isloading, messages }: MessageProps) {
     const [newMessage, setNewMessage] = useState('');
 
     const handleSendMessage = async () => {
@@ -28,8 +29,8 @@ function MessageContent({ currentUser, messages }: MessageProps) {
     };
     return (
         <div className="message-content">
+            {isloading && <Loader />}
             <Message currentUser={currentUser} messages={messages} />
-
             <div className="message-input">
                 <input
                     type="text"

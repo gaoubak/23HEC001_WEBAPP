@@ -9,13 +9,15 @@ import Picture from '../../common/picture';
 import Titre from '../../common/titre';
 import logo from '../../../assets/image/png/BlablaChat.png';
 import logoWebp from '../../../assets/image/webp/BlablaChat.webp';
+import Loader from '../../feedback/loader';
 
-function ChannelList({ channels }: ChannelListProps) {
+function ChannelList({ channels, isloading }: ChannelListProps) {
     const { width } = useWindowSize();
     const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 
     return (
         <div className="channel-list">
+            {isloading && <Loader />}
             <div className="NavMobile">
                 {width < 720 && (
                     <Button

@@ -73,7 +73,7 @@ function Form({
                     )}
                 </Fragment>
             ))}
-            <Button text={label} variant="secondary" submit />
+            <Button text={label} variant="primary" submit />
         </form>
     );
 }

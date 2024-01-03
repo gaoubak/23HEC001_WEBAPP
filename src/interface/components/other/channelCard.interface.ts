@@ -13,4 +13,5 @@ export interface ChannelCardProps {
 
 export interface ChannelListProps {
     channels: ChannelCardProps[];
+    isloading: boolean;
 }
