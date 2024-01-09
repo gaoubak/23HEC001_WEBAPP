@@ -9,6 +9,10 @@ export interface ChannelCardProps {
     id: number;
     nom: string;
     users: User[];
+    picture: {
+        webp: string;
+        png: string;
+    };
 }
 
 export interface ChannelListProps {

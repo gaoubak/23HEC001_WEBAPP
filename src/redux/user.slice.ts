@@ -1,7 +1,14 @@
+// user.slice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface FormData {
+    username: string;
+    email: string;
+    id?: number;
+}
+
 interface UserState {
-    value: string | null;
+    value: FormData | null;
 }
 
 const initialState: UserState = {
@@ -12,13 +19,12 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        userSend: (state, action: PayloadAction<string>) => ({
+        setUser: (state, action: PayloadAction<FormData>) => ({
             ...state,
             value: action.payload,
         }),
     },
 });
 
-export const { userSend } = userSlice.actions;
-
+export const { setUser } = userSlice.actions;
 export default userSlice.reducer;

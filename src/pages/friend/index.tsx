@@ -6,7 +6,7 @@ import { ProfileCardProps } from '../../interface/components/other/profileCard.i
 import '../../assets/style/pages/friend.css';
 import Titre from '../../components/common/titre';
 
-function Friend() {
+function Channel() {
     const [users, setUsers] = useState<ProfileCardProps[]>([]);
     const [filteredUsers, setFilteredUsers] = useState<ProfileCardProps[]>([]);
     const [filter, setFilter] = useState('');
@@ -17,7 +17,6 @@ function Friend() {
             if (!response.error && response.data) {
                 setUsers(response.data);
                 setFilteredUsers(response.data);
-                console.log(response.data);
             }
         };
 
@@ -33,24 +32,22 @@ function Friend() {
         setFilteredUsers(filtered);
     }, [filter, users]);
 
+    const displayedUsers = filteredUsers.slice(0, 15);
+
     return (
         <Modal>
             <div className="friend-content">
-                <Titre
-                    title="Liste des Utilisateurs"
-                    balise="h1"
-                    hasBorderBottom
-                />
+                <Titre title="Crée un groupe" balise="h1" hasBorderBottom />
                 <input
                     type="text"
                     placeholder="Rechercher des utilisateurs..."
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}
                 />
-                <UserList users={filteredUsers} />
+                <UserList users={displayedUsers} />
             </div>
         </Modal>
     );
 }
 
-export default Friend;
+export default Channel;

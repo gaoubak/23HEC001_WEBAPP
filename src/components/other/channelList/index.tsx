@@ -42,6 +42,7 @@ function ChannelList({ channels, isloading }: ChannelListProps) {
                                 id={channel.id}
                                 nom={channel.nom}
                                 users={channel.users}
+                                picture={channel.picture}
                             />
                         ))}
                     </div>

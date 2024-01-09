@@ -1,9 +1,12 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { AuthProvider, AuthContext } from './context/auth.context';
+import { setUser } from './redux/user.slice';
+import ApiUser from './api/user/user.api';
 import Picture from './components/common/picture';
-import Background from './assets/image/png/background.png';
-import BackgroundWebp from './assets/image/webp/background.webp';
+import Background from './assets/image/png/Background.png';
+import BackgroundWebp from './assets/image/webp/Background.webp';
 import Nav from './components/layout/nav';
 import Auth from './pages/auth';
 import Home from './pages/home';
@@ -36,6 +39,28 @@ function MainRoutes() {
 
 function AppContent() {
     const { isLoggedIn } = useContext(AuthContext);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            if (isLoggedIn) {
+                try {
+                    const response = await ApiUser.getCurrentUsers();
+                    if (response) {
+                        dispatch(setUser(response.data));
+                        console.log(response.data);
+                    }
+                } catch (error) {
+                    console.error(
+                        'Erreur lors de la récupération des données utilisateur',
+                        error
+                    );
+                }
+            }
+        };
+
+        fetchUserData();
+    }, [isLoggedIn, dispatch]);
 
     return (
         <>

@@ -17,6 +17,20 @@ class ApiUser {
         return api(apiProps);
     }
 
+    static async getCurrentUsers(): Promise<ApiReturn> {
+        const token = Cookies.get('authToken');
+        const apiProps: ApiProps = {
+            url: 'http://127.0.0.1:8090/api/users/current',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
+        return api(apiProps);
+    }
+
     static async getUserById(userId: number): Promise<ApiReturn> {
         const token = Cookies.get('authToken');
         const apiProps: ApiProps = {

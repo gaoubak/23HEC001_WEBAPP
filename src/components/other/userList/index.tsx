@@ -7,6 +7,7 @@ interface UserListProps {
 }
 
 function UserList({ users }: UserListProps) {
+    console.log(users);
     return (
         <div className="user-list">
             <div className="user-cards">
@@ -16,6 +17,7 @@ function UserList({ users }: UserListProps) {
                         name={user.name}
                         username={user.username}
                         avatar={user.avatar}
+                        picture={user.picture}
                     />
                 ))}
             </div>
