@@ -7,7 +7,7 @@ import DEFAULT_IMAGE from '../../../assets/image/jpg/default-pp.jpg';
 import Button from '../../common/button';
 import '../../../assets/style/components/other/headChanel.css';
 import useWindowSize from '../../../hooks/useWindowSize';
-import { toggleBurgerMenu } from '../../../redux/menu.slice';
+import { toggleBurgerMenu } from '../../../redux/slice/menu.slice';
 import ApiChanel from '../../../api/chanel/chanel.api';
 import Alert from '../../feedback/alert'; // Importez le composant Alert
 
@@ -16,8 +16,8 @@ interface HeadChanelProps {
         webp?: string;
         png?: string;
     };
-    username: string;
-    id: number;
+    username?: string;
+    id?: number;
 }
 
 function HeadChanel({ photo, username, id }: HeadChanelProps) {
@@ -34,7 +34,7 @@ function HeadChanel({ photo, username, id }: HeadChanelProps) {
 
     const handleTrashClick = async () => {
         try {
-            const response = await ApiChanel.deleteChanel(id);
+            const response = await ApiChanel.deleteChanel(id as number);
 
             if (!response.error) {
                 setDeleteChanelAlert({

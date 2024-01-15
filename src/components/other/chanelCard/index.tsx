@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { ChanelCardProps } from '../../../interface/components/other/chanelCard.interface';
 import '../../../assets/style/components/other/chanelCard.css';
-import { chanelSend } from '../../../redux/chanel.slice';
+import { setSelectChanel } from '../../../redux/slice/selectChanel.slice';
 import Picture from '../../common/picture';
 import DEFAULT_WEBP from '../../../assets/image/webp/default-pp.webp';
 import DEFAULT_IMAGE from '../../../assets/image/jpg/default-pp.jpg';
@@ -10,7 +10,7 @@ function ChanelCard({ chanel }: ChanelCardProps) {
     const dispatch = useDispatch();
 
     const handleChanelSelect = () => {
-        dispatch(chanelSend(chanel));
+        dispatch(setSelectChanel(chanel));
     };
 
     const webpSrc = chanel.chanelPhoto?.webp || DEFAULT_WEBP;

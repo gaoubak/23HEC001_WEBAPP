@@ -10,7 +10,7 @@ import Titre from '../../common/titre';
 import logo from '../../../assets/image/png/BlablaChat.png';
 import logoWebp from '../../../assets/image/webp/BlablaChat.webp';
 import Loader from '../../feedback/loader';
-import { toggleBurgerMenu } from '../../../redux/menu.slice';
+import { toggleBurgerMenu } from '../../../redux/slice/menu.slice';
 
 function ChanelList({ chanels, isloading }: ChanelListProps) {
     const { width } = useWindowSize();

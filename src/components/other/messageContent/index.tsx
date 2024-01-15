@@ -22,7 +22,9 @@ function MessageContent({
     const [newMessage, setNewMessage] = useState('');
 
     const user = useSelector((state: RootState) => state.user.value);
-    const chanel = useSelector((state: RootState) => state.chanel.value);
+    const selectChanel = useSelector(
+        (state: RootState) => state.selectChanel.value
+    );
 
     const handleSendMessage = async () => {
         if (newMessage.trim() === '') {
@@ -32,7 +34,7 @@ function MessageContent({
         const messageData = {
             user: user?.id,
             userText: newMessage,
-            channel: chanel.id,
+            channel: selectChanel ? selectChanel.id : 0,
             date: new Date().toISOString(),
         };
         console.log('messageData', messageData);
@@ -49,9 +51,9 @@ function MessageContent({
         <div className="message-content">
             {isloading && <Loader />}
             <HeadChanel
-                photo={chanel?.chanelPhoto}
-                username={chanel?.nom}
-                id={chanel?.id}
+                photo={selectChanel?.chanelPhoto}
+                username={selectChanel?.nom}
+                id={selectChanel?.id}
             />
 
             <div className="messages-list">

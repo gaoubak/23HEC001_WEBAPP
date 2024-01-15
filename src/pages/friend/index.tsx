@@ -1,53 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import Modal from '../../components/feedback/modal';
 import Alert from '../../components/feedback/alert';
-import ApiUser from '../../api/user/user.api';
 import ApiContact from '../../api/contact/contact.api';
 import UserList from '../../components/other/userList';
-import { ProfileCardProps } from '../../interface/components/other/profileCard.interface';
 import '../../assets/style/pages/friend.css';
 import Titre from '../../components/common/titre';
 
 function Channel() {
-    const [users, setUsers] = useState<ProfileCardProps[]>([]);
-    const [filteredUsers, setFilteredUsers] = useState<ProfileCardProps[]>([]);
+    const currentUser = useSelector((state: RootState) => state.user.value);
+    const users = useSelector((state: RootState) => state.users.value);
     const [filter, setFilter] = useState('');
     const [notification, setNotification] = useState({
         type: '',
         message: '',
         key: Date.now(),
     });
-    const currentUser = useSelector((state: RootState) => state.user.value);
-
-    useEffect(() => {
-        const fetchUsers = async () => {
-            const response = await ApiUser.getUsers();
-            if (!response.error && response.data) {
-                setUsers(response.data);
-                setFilteredUsers(response.data);
-            }
-        };
-
-        fetchUsers();
-    }, []);
-
-    useEffect(() => {
-        const filtered = users.filter(
-            (user) =>
-                user.email?.toLowerCase().includes(filter.toLowerCase()) ||
-                user.username?.toLowerCase().includes(filter.toLowerCase())
-        );
-        setFilteredUsers(filtered);
-    }, [filter, users]);
 
     const handleAddFollower = async (userId: number) => {
         const followerData = {
             user: currentUser ? currentUser.id : 0,
             follower: userId,
         };
-        console.log(followerData);
         const response = await ApiContact.createFollower(followerData);
         if (response.error) {
             setNotification({
@@ -81,8 +56,7 @@ function Channel() {
         }
     };
 
-    const displayedUsers = filteredUsers.slice(0, 15);
-
+    console.log(users);
     return (
         <Modal>
             {notification.message && (
@@ -101,7 +75,7 @@ function Channel() {
                     onChange={(e) => setFilter(e.target.value)}
                 />
                 <UserList
-                    users={displayedUsers}
+                    users={users as any}
                     onAddFollower={handleAddFollower}
                     deleteFollower={handleDeleteFollower}
                 />

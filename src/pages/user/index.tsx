@@ -6,7 +6,7 @@ import Modal from '../../components/feedback/modal';
 import Titre from '../../components/common/titre';
 import Form from '../../components/common/form';
 import { RootState } from '../../redux/store';
-import { setUser } from '../../redux/user.slice';
+import { setUser } from '../../redux/slice/user.slice';
 import ApiUser from '../../api/user/user.api';
 import { Question } from '../../interface/other/question.interface';
 import '../../assets/style/pages/user.css';

@@ -1,24 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ChanelCardProps } from '../../interface/components/other/chanelCard.interface';
 
 interface ChanelState {
-    value: any | null;
+    value: ChanelCardProps[];
 }
 
 const initialState: ChanelState = {
-    value: null,
+    value: [],
 };
 
 const chanelSlice = createSlice({
     name: 'chanel',
     initialState,
     reducers: {
-        chanelSend: (state, action: PayloadAction<any>) => ({
+        setChanel: (state, action: PayloadAction<any>) => ({
             ...state,
             value: action.payload,
         }),
     },
 });
 
-export const { chanelSend } = chanelSlice.actions;
+export const { setChanel } = chanelSlice.actions;
 
 export default chanelSlice.reducer;
