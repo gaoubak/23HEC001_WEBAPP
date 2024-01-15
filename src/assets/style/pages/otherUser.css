@@ -1,14 +1,14 @@
-.otherUser-container{
+.otherUser-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.otherUser-container p{
+.otherUser-container p {
     padding: 10px;
 }
 
-.divButton{
+.divButton {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,6 +16,6 @@
     gap: 20px;
 }
 
-.divButton button{
+.divButton button {
     width: 100%;
 }

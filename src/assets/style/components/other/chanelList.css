@@ -7,7 +7,7 @@
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 90vh ;
+    max-height: 90vh;
     padding: 20px;
     border-right: 2px solid;
     border-image: linear-gradient(
@@ -18,14 +18,13 @@
         1;
 }
 
-.chanel-list .logo-container img { 
-    height:50px;
+.chanel-list .logo-container img {
+    height: 50px;
 }
 
 @media screen and (max-width: 720px) {
-
     .chanel-list {
-        padding: 0px ;
+        padding: 0px;
         background-color: transparent;
         box-shadow: none;
         border-radius: 0px;

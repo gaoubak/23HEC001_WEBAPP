@@ -1,11 +1,11 @@
-.friend-content{
+.friend-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 20px;
 }
 
-.friend-content input{
+.friend-content input {
     width: 100%;
     height: 100%;
     background-color: var(--color-white-50);

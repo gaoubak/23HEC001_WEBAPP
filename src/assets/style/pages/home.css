@@ -1,4 +1,4 @@
-.Content{
+.Content {
     display: grid;
     grid-template-columns: 250px 1fr;
     flex-direction: column;
@@ -10,15 +10,13 @@
 }
 
 @media screen and (max-width: 1024px) {
-
     .Content {
         grid-template-columns: 235px 1fr;
     }
-
 }
 
-@media screen and (max-width: 720px){
-    .Content{
+@media screen and (max-width: 720px) {
+    .Content {
         grid-template-columns: 1fr;
         height: 100%;
         background-color: transparent !important;
@@ -27,5 +25,4 @@
         backdrop-filter: none;
         padding: 20px;
     }
-    
 }

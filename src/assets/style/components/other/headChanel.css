@@ -1,4 +1,4 @@
-.head-chanel{
+.head-chanel {
     display: flex;
     height: fit-content;
     padding: 10px;
@@ -8,10 +8,10 @@
     align-items: center;
     background-color: var(--color-turquoise-50);
     border-radius: 10px;
-    box-shadow: 0px 0px 10px 0px var(--color-violet-25)
+    box-shadow: 0px 0px 10px 0px var(--color-violet-25);
 }
 
-.head-chanel div{
+.head-chanel div {
     display: flex;
     flex-direction: row;
     align-items: center;

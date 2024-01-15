@@ -1,12 +1,17 @@
-.chanel-card{
+.chanel-card {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 10px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    border-bottom: 2px solid ;
-    border-image: linear-gradient( to left, var(--color-violet), var(--color-turquoise) ) 1;
+    border-bottom: 2px solid;
+    border-image: linear-gradient(
+            to left,
+            var(--color-violet),
+            var(--color-turquoise)
+        )
+        1;
     gap: 10px;
 }
 
