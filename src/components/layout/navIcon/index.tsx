@@ -6,15 +6,15 @@ function NavIcon({ item }: NavIconProps) {
     const location = useLocation();
     const Icon = item.icon;
 
+    const pathSegments = location.pathname.split('/');
+
+    const basePath = `/${pathSegments[1]}`;
+
+    const isActive = basePath === item.path;
+
     return (
         <Link to={item.path}>
-            <div
-                className={
-                    location.pathname === item.path
-                        ? 'NavIon Selected'
-                        : 'NavIon'
-                }
-            >
+            <div className={isActive ? 'NavIon Selected' : 'NavIon'}>
                 <Icon />
             </div>
         </Link>

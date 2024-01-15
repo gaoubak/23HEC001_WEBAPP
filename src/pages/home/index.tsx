@@ -107,7 +107,6 @@ function Home() {
     }, [initial, dispatch]);
 
     useEffect(() => {
-        console.log(selectedChanel);
         const fetchMessages = async () => {
             if (selectedChanel && selectedChanel.id) {
                 try {
@@ -127,6 +126,8 @@ function Home() {
         };
         fetchMessages();
     }, [selectedChanel, dispatch]);
+
+    console.log('chanels', chanels);
 
     return (
         <div className="Content">

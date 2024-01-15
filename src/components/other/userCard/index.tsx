@@ -1,4 +1,5 @@
 import { FaPlus, FaTrash } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Importer Link
 import { ProfileCardProps } from '../../../interface/components/other/profileCard.interface';
 import '../../../assets/style/components/other/userCard.css';
 import Picture from '../../common/picture';
@@ -20,20 +21,23 @@ function UserCard({
 
     const handleAddFollowerClick = () => onAddFollower(id);
     const isSelected = selectedUserIds ? selectedUserIds.includes(id) : false;
+
     return (
         <div className="profile-card">
-            <div className="profile-card-left">
-                <Picture
-                    webpSrc={webpSrc}
-                    fallbackSrc={fallbackSrc}
-                    alt={`${username}'s avatar`}
-                    className="pictureProfile"
-                />
-                <div>
-                    <p>{email}</p>
-                    <small>{username}</small>
+            <Link to={`/user/${id}`}>
+                <div className="profile-card-left">
+                    <Picture
+                        webpSrc={webpSrc}
+                        fallbackSrc={fallbackSrc}
+                        alt={`${username}'s avatar`}
+                        className="pictureProfile"
+                    />
+                    <div>
+                        <p>{email}</p>
+                        <small>{username}</small>
+                    </div>
                 </div>
-            </div>
+            </Link>
             <div className="profile-card-right">
                 <Button
                     text=""

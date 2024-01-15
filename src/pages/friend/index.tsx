@@ -56,7 +56,6 @@ function Channel() {
         }
     };
 
-    console.log(users);
     return (
         <Modal>
             {notification.message && (
