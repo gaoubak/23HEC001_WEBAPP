@@ -1,7 +1,11 @@
+export interface UserPhoto {
+    webp: string;
+    png: string;
+}
 export interface UserData {
     email: string;
     id: number;
-    userPhoto: string | null;
+    userPhoto: UserPhoto;
     username: string;
 }
 
@@ -13,7 +17,12 @@ export interface MessageData {
 }
 
 export interface MessageProps {
-    currentUser: string;
+    currentUser: UserData;
+    message: MessageData;
+}
+
+export interface MessageContentProps {
+    currentUser: any;
     messages: MessageData[];
     isloading?: boolean;
 }

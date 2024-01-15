@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ChanelState {
-    value: number | null;
+    value: any | null;
 }
 
 const initialState: ChanelState = {
@@ -12,7 +12,7 @@ const chanelSlice = createSlice({
     name: 'chanel',
     initialState,
     reducers: {
-        chanelSend: (state, action: PayloadAction<number>) => ({
+        chanelSend: (state, action: PayloadAction<any>) => ({
             ...state,
             value: action.payload,
         }),

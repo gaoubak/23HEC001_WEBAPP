@@ -45,10 +45,24 @@ class ApiUser {
         return api(apiProps);
     }
 
-    static async updateUser(userId: number, userData: any): Promise<ApiReturn> {
+    static async getFollowersByUser(): Promise<ApiReturn> {
         const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/api/users/${userId}`,
+            url: 'http://127.0.0.1:8090/api/users/current-follower',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
+        return api(apiProps);
+    }
+
+    static async updateUser(userData: any): Promise<ApiReturn> {
+        const token = Cookies.get('authToken');
+        const apiProps: ApiProps = {
+            url: `http://127.0.0.1:8090/api/users/update`,
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

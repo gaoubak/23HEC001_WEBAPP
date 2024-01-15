@@ -6,7 +6,7 @@ class ApiContact {
     static async getFollowers(): Promise<ApiReturn> {
         const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: 'http://127.0.0.1:8000/api/followers',
+            url: 'http://127.0.0.1:8090/api/followers',
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ class ApiContact {
     static async getFollowerById(followerId: number): Promise<ApiReturn> {
         const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8000/api/followers/${followerId}`,
+            url: `http://127.0.0.1:8090/api/followers/${followerId}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ class ApiContact {
     static async createFollower(followerData: any): Promise<ApiReturn> {
         const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: 'http://127.0.0.1:8000/api/followers',
+            url: 'http://127.0.0.1:8090/api/followers/create',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ class ApiContact {
     static async deleteFollower(followerId: number): Promise<ApiReturn> {
         const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8000/api/followers/${followerId}`,
+            url: `http://127.0.0.1:8090/api/followers/delete/${followerId}`,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

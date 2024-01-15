@@ -21,8 +21,8 @@ function Button({
             type={submit ? 'submit' : 'button'}
             disabled={disabled}
         >
-            {Icon && <Icon />}
             {text && <span>{text}</span>}
+            {Icon && <Icon />}
         </button>
     );
 }

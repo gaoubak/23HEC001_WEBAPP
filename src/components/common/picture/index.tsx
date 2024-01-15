@@ -1,4 +1,5 @@
 import { PictureProps } from '../../../interface/components/common/picture.interface';
+import '../../../assets/style/components/common/picture.css';
 
 function Picture({ className, webpSrc, fallbackSrc, alt }: PictureProps) {
     return (

@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import Modal from '../../components/feedback/modal';
-import Alert from '../../components/feedback/alert';
 import ApiUser from '../../api/user/user.api';
-import ApiContact from '../../api/contact/contact.api';
+import ApiChanel from '../../api/chanel/chanel.api';
 import UserList from '../../components/other/userList';
 import { ProfileCardProps } from '../../interface/components/other/profileCard.interface';
+import Button from '../../components/common/button';
+import Alert from '../../components/feedback/alert'; // Importation du composant Alert
 import '../../assets/style/pages/friend.css';
 import Titre from '../../components/common/titre';
 
-function Channel() {
+function Chanel() {
     const [users, setUsers] = useState<ProfileCardProps[]>([]);
+    const [selectedUserIds, setSelectedUserIds] = useState<number[]>([]);
+    const [chanelName, setChanelName] = useState('');
     const [filteredUsers, setFilteredUsers] = useState<ProfileCardProps[]>([]);
     const [filter, setFilter] = useState('');
     const [notification, setNotification] = useState({
@@ -19,11 +20,10 @@ function Channel() {
         message: '',
         key: Date.now(),
     });
-    const currentUser = useSelector((state: RootState) => state.user.value);
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const response = await ApiUser.getUsers();
+            const response = await ApiUser.getFollowersByUser();
             if (!response.error && response.data) {
                 setUsers(response.data);
                 setFilteredUsers(response.data);
@@ -42,40 +42,30 @@ function Channel() {
         setFilteredUsers(filtered);
     }, [filter, users]);
 
-    const handleAddFollower = async (userId: number) => {
-        const followerData = {
-            user: currentUser ? currentUser.id : 0,
-            follower: userId,
-        };
-        console.log(followerData);
-        const response = await ApiContact.createFollower(followerData);
-        if (response.error) {
-            setNotification({
-                type: 'error',
-                message: "Échec de l'ajout du follower",
-                key: Date.now(),
-            });
-        } else {
-            setNotification({
-                type: 'success',
-                message: 'Follower ajouté avec succès',
-                key: Date.now(),
-            });
-        }
+    const handleUserSelection = (userId: number) => {
+        setSelectedUserIds((prevIds) =>
+            prevIds.includes(userId)
+                ? prevIds.filter((id) => id !== userId)
+                : [...prevIds, userId]
+        );
     };
 
-    const handleDeleteFollower = async (userId: number) => {
-        const response = await ApiContact.deleteFollower(userId);
+    const handleCreateChanel = async () => {
+        const chanelData = {
+            users: selectedUserIds,
+            nom: chanelName,
+        };
+        const response = await ApiChanel.createChanel(chanelData);
         if (response.error) {
             setNotification({
                 type: 'error',
-                message: 'Échec de la suppression du follower',
+                message: 'Échec de la création du groupe',
                 key: Date.now(),
             });
         } else {
             setNotification({
                 type: 'success',
-                message: 'Follower supprimé avec succès',
+                message: 'Groupe créé avec succès',
                 key: Date.now(),
             });
         }
@@ -93,21 +83,35 @@ function Channel() {
                 />
             )}
             <div className="friend-content">
-                <Titre title="Gerée vos Follow" balise="h1" hasBorderBottom />
+                <Titre title="Crée un groupe" balise="h1" hasBorderBottom />
                 <input
                     type="text"
                     placeholder="Rechercher des utilisateurs..."
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}
                 />
+                {selectedUserIds.length > 0 && (
+                    <>
+                        <input
+                            id="chanelName"
+                            placeholder="Nom du groupe"
+                            value={chanelName}
+                            onChange={(e) => setChanelName(e.target.value)}
+                        />
+                        <Button
+                            text="Créer le groupe"
+                            onClick={handleCreateChanel}
+                        />
+                    </>
+                )}
                 <UserList
                     users={displayedUsers}
-                    onAddFollower={handleAddFollower}
-                    deleteFollower={handleDeleteFollower}
+                    onAddFollower={handleUserSelection}
+                    selectedUserIds={selectedUserIds}
                 />
             </div>
         </Modal>
     );
 }
 
-export default Channel;
+export default Chanel;

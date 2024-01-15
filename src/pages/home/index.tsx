@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-import ChannelList from '../../components/other/channelList';
+import ChanelList from '../../components/other/chanelList';
 import MessageContent from '../../components/other/messageContent';
 import ApiChanel from '../../api/chanel/chanel.api';
 import ApiMessage from '../../api/message/message.api';
@@ -11,46 +11,47 @@ import '../../assets/style/pages/home.css';
 
 function Home() {
     const dispatch = useDispatch();
-    const selectedChannel = useSelector(
+    const selectedChanel = useSelector(
         (state: RootState) => state.chanel.value
     );
-    const [channels, setChannels] = useState([]);
+    const [chanels, setChanels] = useState([]);
     const [messages, setMessages] = useState([]);
     const currentUser = useSelector((state: RootState) => state.user.value);
-    const [isChannelsLoading, setIsChannelsLoading] = useState(true);
+    const [isChanelsLoading, setIsChanelsLoading] = useState(true);
     const [isMessagesLoading, setIsMessagesLoading] = useState(true);
 
     useEffect(() => {
-        const fetchChannels = async () => {
-            setIsChannelsLoading(true);
-            const { data } = await ApiChanel.getChannels();
-            setIsChannelsLoading(false);
-            setChannels(data);
-            if (!selectedChannel && data && data.length > 0) {
-                dispatch(chanelSend(data[0].id));
+        const fetchChanels = async () => {
+            setIsChanelsLoading(true);
+            const { data } = await ApiChanel.getChanelByUser();
+            setIsChanelsLoading(false);
+            setChanels(data.associations);
+            if (!selectedChanel && data && data.associations.length > 0) {
+                dispatch(chanelSend(data.associations[0].chanel));
             }
         };
 
         const fetchMessages = async () => {
-            if (selectedChannel) {
+            if (selectedChanel && selectedChanel.id) {
                 setIsMessagesLoading(true);
-                const { data } =
-                    await ApiMessage.getMessagesByChannel(selectedChannel);
+                const { data } = await ApiMessage.getMessagesByChanel(
+                    selectedChanel.id
+                );
                 setIsMessagesLoading(false);
                 setMessages(data);
             }
         };
 
-        fetchChannels();
+        fetchChanels();
         fetchMessages();
-    }, [selectedChannel, dispatch]);
+    }, [selectedChanel, dispatch]);
 
     return (
         <div className="Content">
-            <ChannelList channels={channels} isloading={isChannelsLoading} />
+            <ChanelList chanels={chanels} isloading={isChanelsLoading} />
             <MessageContent
-                messages={messages}
                 currentUser={currentUser ?? ''}
+                messages={messages}
                 isloading={isMessagesLoading}
             />
             <Outlet />

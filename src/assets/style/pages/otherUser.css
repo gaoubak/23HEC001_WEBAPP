@@ -1,0 +1,21 @@
+.otherUser-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.otherUser-container p{
+    padding: 10px;
+}
+
+.divButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    gap: 20px;
+}
+
+.divButton button{
+    width: 100%;
+}

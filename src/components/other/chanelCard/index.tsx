@@ -1,37 +1,39 @@
 import { useDispatch } from 'react-redux';
-import { ChannelCardProps } from '../../../interface/components/other/channelCard.interface';
+import { ChanelCardProps } from '../../../interface/components/other/chanelCard.interface';
 import '../../../assets/style/components/other/chanelCard.css';
 import { chanelSend } from '../../../redux/chanel.slice';
 import Picture from '../../common/picture';
 import DEFAULT_WEBP from '../../../assets/image/webp/default-pp.webp';
 import DEFAULT_IMAGE from '../../../assets/image/jpg/default-pp.jpg';
 
-function ChannelCard({ id, nom, users, picture }: ChannelCardProps) {
+function ChanelCard({ chanel }: ChanelCardProps) {
     const dispatch = useDispatch();
 
-    const handleChannelSelect = () => {
-        dispatch(chanelSend(id));
+    const handleChanelSelect = () => {
+        dispatch(chanelSend(chanel));
     };
 
-    const webpSrc = picture?.webp || DEFAULT_WEBP;
-    const fallbackSrc = picture?.png || DEFAULT_IMAGE;
+    const webpSrc = chanel.chanelPhoto?.webp || DEFAULT_WEBP;
+    const fallbackSrc = chanel.chanelPhoto?.png || DEFAULT_IMAGE;
 
     return (
         <div
-            className="channel-card"
-            onClick={handleChannelSelect}
+            className="chanel-card"
+            onClick={handleChanelSelect}
             role="button"
             tabIndex={0}
         >
             <Picture
                 webpSrc={webpSrc}
                 fallbackSrc={fallbackSrc}
-                alt={`${nom}'s avatar`}
+                alt={`${chanel.nom}'s avatar`}
+                className="pictureProfile"
             />
-            <h4>{nom}</h4>
-            <p>{users.length} Followers</p>
+            <div>
+                <h4>{chanel.nom}</h4>
+            </div>
         </div>
     );
 }
 
-export default ChannelCard;
+export default ChanelCard;

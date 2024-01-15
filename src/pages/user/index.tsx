@@ -9,10 +9,12 @@ import { RootState } from '../../redux/store';
 import { setUser } from '../../redux/user.slice';
 import ApiUser from '../../api/user/user.api';
 import { Question } from '../../interface/other/question.interface';
+import '../../assets/style/pages/user.css';
 
 interface FormData {
     username: string;
     email: string;
+    description: string;
     id?: number;
 }
 
@@ -25,6 +27,7 @@ function User() {
     const initialFormData: FormData = {
         username: '',
         email: '',
+        description: '',
     };
 
     const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -52,13 +55,26 @@ function User() {
             placeholder: 'Entrez votre email',
             required: true,
         },
+        {
+            id: 'description',
+            label: 'Description',
+            name: 'description',
+            type: 'text',
+            placeholder: 'Entrez votre description',
+            required: false,
+        },
     ];
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (user && user.id) {
             try {
-                const response = await ApiUser.updateUser(user.id, formData);
+                const userData = {
+                    email: formData.email,
+                    username: formData.username,
+                    description: formData.description,
+                };
+                const response = await ApiUser.updateUser(userData);
                 if (response && response.data) {
                     dispatch(setUser(formData));
                 }
@@ -70,14 +86,18 @@ function User() {
 
     return (
         <Modal>
-            <Titre title="Tes Paramettre" balise="h1" hasBorderBottom />
-            <Form
-                dataQuestion={userQuestions}
-                handleSubmit={handleSubmit}
-                dataArr={formData}
-                setDataArr={setFormData}
-                label="Mettre à jour"
-            />
+            <div className="setting-container">
+                <Titre title="Tes Paramètres" balise="h1" hasBorderBottom />
+                <div className="setting-form">
+                    <Form
+                        dataQuestion={userQuestions}
+                        handleSubmit={handleSubmit}
+                        dataArr={formData}
+                        setDataArr={setFormData}
+                        label="Mettre à jour"
+                    />
+                </div>
+            </div>
         </Modal>
     );
 }

@@ -1,6 +1,9 @@
 export interface ProfileCardProps {
-    picture: any;
-    name: string;
+    id: number;
+    avatar: any;
+    email: string;
     username: string;
-    avatar: string;
+    onAddFollower: (id: number) => void;
+    deleteFollower?: (id: number) => void;
+    selectedUserIds?: number[];
 }

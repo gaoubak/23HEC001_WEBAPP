@@ -1,37 +1,60 @@
-.message-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
 .message {
     max-width: 70%;
-    padding: var(--spacing-m);
-    margin: var(--spacing-m);
-    border-radius: 15px;
-    font-size: var(--font-p);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .message.right {
     align-self: flex-end;
-    background-color: var(--color-turquoise-light);
+}
+
+.message.right .message-text {
+    background-color: var(--color-violet);
+    color: var(--color-white);
 }
 
 .message.left {
     align-self: flex-start;
-    background-color: var(--color-violet-light);
+}
+
+.message.left .message-text {
+    background-color: var(--color-turquoise);
+    color: var(--color-white);
+}
+
+.message.right .message-text-contenaire {
+    justify-content: flex-end;
+}
+
+.message.right .message-info {
+    justify-content: flex-end;
+}
+
+.message-text-contenaire {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.message.right .message-date{
+    text-align: right;
 }
 
 .message-info {
     display: flex;
-    justify-content: space-between;
-    font-size: var(--font-small);
-}
-
-.message-username {
-    color: var(--color-black);
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-violet);
 }
 
 .message-date {
     color: var(--color-gray);
+}
+
+.message-text {
+    border-radius: 15px;
+    padding: 10px;
 }

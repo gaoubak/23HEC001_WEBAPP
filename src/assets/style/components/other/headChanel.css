@@ -1,0 +1,19 @@
+.head-chanel{
+    display: flex;
+    height: fit-content;
+    padding: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    background-color: var(--color-turquoise-50);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px var(--color-violet-25)
+}
+
+.head-chanel div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}

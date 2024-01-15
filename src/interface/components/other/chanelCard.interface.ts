@@ -5,17 +5,21 @@ export interface User {
     userPhoto: string | null;
 }
 
-export interface ChannelCardProps {
+export interface ChanelCard {
     id: number;
     nom: string;
-    users: User[];
-    picture: {
+    associations: User[];
+    chanelPhoto: {
         webp: string;
         png: string;
     };
 }
 
-export interface ChannelListProps {
-    channels: ChannelCardProps[];
+export interface ChanelCardProps {
+    chanel: ChanelCard;
+}
+
+export interface ChanelListProps {
+    chanels: ChanelCardProps[];
     isloading: boolean;
 }

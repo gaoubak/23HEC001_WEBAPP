@@ -17,7 +17,7 @@ class ApiMessage {
         return api(apiProps);
     }
 
-    static async getMessagesByChannel(channelId: number): Promise<ApiReturn> {
+    static async getMessagesByChanel(channelId: number): Promise<ApiReturn> {
         const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
             url: `http://127.0.0.1:8090/api/messages/chanel/${channelId}`,
@@ -62,7 +62,7 @@ class ApiMessage {
     static async createMessage(messageData: any): Promise<ApiReturn> {
         const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: 'http://127.0.0.1:8090/api/messages',
+            url: 'http://127.0.0.1:8090/api/messages/send',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ class ApiMessage {
     static async deleteMessage(messageId: number): Promise<ApiReturn> {
         const token = Cookies.get('authToken');
         const apiProps: ApiProps = {
-            url: `http://127.0.0.1:8090/api/messages/${messageId}`,
+            url: `http://127.0.0.1:8090/api/messages/delete/${messageId}`,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

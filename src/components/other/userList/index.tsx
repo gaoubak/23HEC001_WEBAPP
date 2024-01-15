@@ -4,20 +4,30 @@ import '../../../assets/style/components/other/userList.css';
 
 interface UserListProps {
     users: ProfileCardProps[];
+    onAddFollower: (userId: number) => void;
+    deleteFollower?: (userId: number) => void;
+    selectedUserIds?: number[];
 }
 
-function UserList({ users }: UserListProps) {
-    console.log(users);
+function UserList({
+    users,
+    onAddFollower,
+    deleteFollower,
+    selectedUserIds,
+}: UserListProps) {
     return (
         <div className="user-list">
             <div className="user-cards">
                 {users.map((user, index) => (
                     <ProfileCard
                         key={index}
-                        name={user.name}
+                        id={user.id}
                         username={user.username}
                         avatar={user.avatar}
-                        picture={user.picture}
+                        email={user.email}
+                        onAddFollower={onAddFollower}
+                        deleteFollower={deleteFollower}
+                        selectedUserIds={selectedUserIds}
                     />
                 ))}
             </div>

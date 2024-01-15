@@ -13,8 +13,8 @@ import Titre from '../../components/common/titre';
 import logo from '../../assets/image/png/BlablaChat.png';
 import logoWebp from '../../assets/image/webp/BlablaChat.webp';
 import Welcom from '../../assets/image/svg/undraw_welcome.svg';
-import Login from '../../assets/image/svg/undraw_login.svg';
 import WelcomWebp from '../../assets/image/webp/undraw_welcome.webp';
+import Login from '../../assets/image/svg/undraw_login.svg';
 import LoginWebp from '../../assets/image/webp/undraw_login.webp';
 import Picture from '../../components/common/picture';
 import Loader from '../../components/feedback/loader';
@@ -56,7 +56,6 @@ function Auth() {
                 );
             } finally {
                 setIsLoading(false);
-                window.location.reload();
             }
         },
         [handleAuthError]
@@ -82,6 +81,8 @@ function Auth() {
                 authData,
                 isLogin ? ApiAuth.login : ApiAuth.register
             );
+
+            window.location.reload();
         },
         [isLogin, formData, authenticate, handleAuthError]
     );

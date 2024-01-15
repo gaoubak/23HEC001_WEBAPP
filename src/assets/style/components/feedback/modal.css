@@ -18,4 +18,7 @@
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0px 0px 10px 0px var(--color-violet-25);
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
 }

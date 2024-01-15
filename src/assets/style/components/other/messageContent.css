@@ -1,10 +1,19 @@
 .message-content{
     display: grid;
-    grid-template-rows: 1fr 50px;
+    grid-template-rows: 70px 1fr 50px;
     gap: 10px;
     position: relative;
+    padding: 20px;
 }
 
+.messages-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: calc(90vh - 180px);
+    overflow: auto;
+    padding: 10px;
+}
 
 .message-input{
     display: flex;
@@ -26,7 +35,11 @@
 
 @media screen and (max-width: 720px){
     .message-content{
-        padding: 20px;
+        padding: 0px;
+    }
+
+    .messages-list{
+        max-height: calc(90vh - 170px);
     }
     
 }
