@@ -75,18 +75,13 @@ function Home() {
 
             const fetchChanels = async () => {
                 try {
-                    const response = await ApiChanel.getChanelByUser();
+                    const response = await ApiChanel.getChanels();
                     if (response) {
-                        dispatch(setChanel(response.data.associations));
-                        if (
-                            !selectedChanel &&
-                            response.data.associations.length > 0
-                        ) {
-                            dispatch(
-                                setSelectChanel(
-                                    response.data.associations[0].chanel
-                                )
-                            );
+                        console.log(response.data);
+                        dispatch(setChanel(response.data));
+                        if (!selectedChanel && response.data.length > 0) {
+                            console.log(response.data[0]);
+                            dispatch(setSelectChanel(response.data[0]));
                         }
                     }
                 } catch (error) {
@@ -126,8 +121,6 @@ function Home() {
         };
         fetchMessages();
     }, [selectedChanel, dispatch]);
-
-    console.log('chanels', chanels);
 
     return (
         <div className="Content">

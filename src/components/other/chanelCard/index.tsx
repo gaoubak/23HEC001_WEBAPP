@@ -13,8 +13,8 @@ function ChanelCard({ chanel }: ChanelCardProps) {
         dispatch(setSelectChanel(chanel));
     };
 
-    const webpSrc = chanel.chanelPhoto?.webp || DEFAULT_WEBP;
-    const fallbackSrc = chanel.chanelPhoto?.png || DEFAULT_IMAGE;
+    const webpSrc = chanel?.chanelPhoto?.webp || DEFAULT_WEBP;
+    const fallbackSrc = chanel?.chanelPhoto?.png || DEFAULT_IMAGE;
 
     return (
         <div

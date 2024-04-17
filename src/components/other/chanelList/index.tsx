@@ -34,8 +34,8 @@ function ChanelList({ chanels, isloading }: ChanelListProps) {
                             />
                             <Titre title="BlablaChat" balise="h3" />
                         </div>
-                        {chanels.map((chanel, index) => (
-                            <ChanelCard key={index} chanel={chanel.chanel} />
+                        {chanels?.map((chanel, index) => (
+                            <ChanelCard key={index} chanel={chanel} />
                         ))}
                     </div>
                     {isBurgerMenuOpen && width < 720 && (

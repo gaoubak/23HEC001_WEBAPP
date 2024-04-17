@@ -20,6 +20,6 @@ export interface ChanelCardProps {
 }
 
 export interface ChanelListProps {
-    chanels: ChanelCardProps[];
+    chanels: ChanelCard[];
     isloading: boolean;
 }

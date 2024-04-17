@@ -3,6 +3,7 @@ import {
     loginFormQuestions,
     registrationFormQuestions,
 } from '../../data/auth.data';
+import useWindowSize from '../../hooks/useWindowSize';
 import { FormData } from '../../interface/pages/auth.interface';
 import Alert from '../../components/feedback/alert';
 import { ExtendedAlertProps } from '../../interface/components/feedback/alert.interface';
@@ -30,35 +31,47 @@ function Auth() {
         key: Date.now(),
     });
 
+    const { width } = useWindowSize();
+
     const toggleAuthMode = useCallback(() => {
         setIsLogin((prevIsLogin) => !prevIsLogin);
         setFormData({});
         setAlert({ type: '', message: '', key: Date.now() });
     }, []);
 
-    const handleAuthError = useCallback((error: Error | string) => {
-        const errorMessage = typeof error === 'string' ? error : error.message;
-        setAlert({ type: 'error', message: errorMessage, key: Date.now() });
-    }, []);
+    const handleAuthFeedback = useCallback(
+        (message: string, isError: boolean = true) => {
+            setAlert({
+                type: isError ? 'error' : 'success',
+                message,
+                key: Date.now(),
+            });
+        },
+        []
+    );
 
     const authenticate = useCallback(
         async (data: any, apiMethod: (userData: any) => Promise<ApiReturn>) => {
             setIsLoading(true);
             try {
-                const { data: error } = await apiMethod(data);
+                const response = await apiMethod(data);
 
-                if (error) {
-                    throw new Error(error);
+                if (response.error) {
+                    handleAuthFeedback(response.error);
+                } else {
+                    handleAuthFeedback('Connexion réussie!', false);
                 }
             } catch (error) {
-                handleAuthError(
-                    error instanceof Error ? error : "Erreur d'authentification"
+                handleAuthFeedback(
+                    error instanceof Error
+                        ? error.message
+                        : "Erreur d'authentification"
                 );
             } finally {
                 setIsLoading(false);
             }
         },
-        [handleAuthError]
+        [handleAuthFeedback]
     );
 
     const handleSubmit = useCallback(
@@ -73,7 +86,7 @@ function Auth() {
                   };
 
             if (!isLogin && formData.password !== formData.confirmPassword) {
-                handleAuthError('Les mots de passe ne correspondent pas!');
+                handleAuthFeedback('Les mots de passe ne correspondent pas!');
                 return;
             }
 
@@ -81,10 +94,8 @@ function Auth() {
                 authData,
                 isLogin ? ApiAuth.login : ApiAuth.register
             );
-
-            window.location.reload();
         },
-        [isLogin, formData, authenticate, handleAuthError]
+        [isLogin, formData, authenticate, handleAuthFeedback]
     );
 
     return (
@@ -102,40 +113,64 @@ function Auth() {
             <div className="auth-container">
                 <div className="auth-form">
                     <div className="auth-form-container">
-                        <div className="logo-container">
+                        {width <= 1024 && (
+                            <div className="auth-form-container">
+                                <div className="logo-container">
+                                    <Picture
+                                        webpSrc={logoWebp}
+                                        fallbackSrc={logo}
+                                        alt="logo"
+                                    />
+                                    <Titre title="BlablaChat" balise="h1" />
+                                </div>
+                            </div>
+                        )}
+                        <div className="auth-container-responsif">
                             <Picture
-                                webpSrc={logoWebp}
-                                fallbackSrc={logo}
+                                webpSrc={isLogin ? LoginWebp : WelcomWebp}
+                                fallbackSrc={isLogin ? Login : Welcom}
                                 alt="logo"
                             />
-                            <Titre title="BlablaChat" balise="h1" />
+                            <div className="sous-auth-container-responsif">
+                                {width > 1024 && (
+                                    <div className="auth-form-container">
+                                        <div className="logo-container">
+                                            <Picture
+                                                webpSrc={logoWebp}
+                                                fallbackSrc={logo}
+                                                alt="logo"
+                                            />
+                                            <Titre
+                                                title="BlablaChat"
+                                                balise="h1"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                                <Form
+                                    dataQuestion={
+                                        isLogin
+                                            ? loginFormQuestions
+                                            : registrationFormQuestions
+                                    }
+                                    handleSubmit={handleSubmit}
+                                    dataArr={formData}
+                                    setDataArr={setFormData}
+                                    label={
+                                        isLogin ? 'Se connecter' : "S'inscrire"
+                                    }
+                                />
+                                <small
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={toggleAuthMode}
+                                >
+                                    {isLogin
+                                        ? "Pas encore de compte? S'inscrire"
+                                        : 'Déjà un compte? Se connecter'}
+                                </small>
+                            </div>
                         </div>
-
-                        <Picture
-                            webpSrc={isLogin ? LoginWebp : WelcomWebp}
-                            fallbackSrc={isLogin ? Login : Welcom}
-                            alt="logo"
-                        />
-                        <Form
-                            dataQuestion={
-                                isLogin
-                                    ? loginFormQuestions
-                                    : registrationFormQuestions
-                            }
-                            handleSubmit={handleSubmit}
-                            dataArr={formData}
-                            setDataArr={setFormData}
-                            label={isLogin ? 'Se connecter' : "S'inscrire"}
-                        />
-                        <small
-                            role="button"
-                            tabIndex={0}
-                            onClick={toggleAuthMode}
-                        >
-                            {isLogin
-                                ? "Pas encore de compte? S'inscrire"
-                                : 'Déjà un compte? Se connecter'}
-                        </small>
                     </div>
                 </div>
             </div>

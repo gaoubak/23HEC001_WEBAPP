@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ChanelCardProps } from '../../interface/components/other/chanelCard.interface';
+import { ChanelCard } from '../../interface/components/other/chanelCard.interface';
 
 interface ChanelState {
-    value: ChanelCardProps[];
+    value: ChanelCard[];
 }
 
 const initialState: ChanelState = {

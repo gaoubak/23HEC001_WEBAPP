@@ -207,7 +207,7 @@ input {
     font-size: var(--font-input);
     border: none;
     background: none;
-    color: white;
+    color: var(--color-black);
 }
 
 input::focus {

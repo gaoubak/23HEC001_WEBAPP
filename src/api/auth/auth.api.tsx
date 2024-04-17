@@ -45,6 +45,7 @@ class ApiAuth {
                 secure: true,
                 sameSite: 'Strict',
             });
+            window.location.reload();
         }
 
         return { data, error, isLoading };

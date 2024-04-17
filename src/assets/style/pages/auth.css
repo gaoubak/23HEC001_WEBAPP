@@ -18,7 +18,7 @@
     position: relative;
     overflow-x: hidden;
     min-width: 500px;
-    max-width: 750px;
+    max-width: 85vw;
     border-radius: 10px;
     background-color: var(--color-white-50);
     box-shadow: 0px 0px 50px 0px var(--color-violet-50);
@@ -32,6 +32,7 @@
     gap: 20px;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .auth-container .auth-form-container img {
@@ -73,6 +74,26 @@
     width: 100%;
 }
 
+.auth-container-responsif{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    gap: 20px;
+    width: 100vw;
+    max-width: calc(85vw - 60px);
+    justify-items: center;
+    align-items: center;
+}
+
+.sous-auth-container-responsif{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
 .logo-container img {
     height: 75px;
     width: fit-content !important;
@@ -82,7 +103,20 @@
     width: fit-content;
 }
 
+
+@media (max-width: 1024px) {
+
+    .auth-container-responsif{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        max-width: calc(400px - 60px);
+    }
+}
+
 @media (max-width: 720px) {
+
     .logo-container div {
         min-width: 350px;
         max-width: 400px;
